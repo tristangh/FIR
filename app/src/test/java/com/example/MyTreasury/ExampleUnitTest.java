@@ -1,4 +1,4 @@
-package com.example.financialisepreports;
+package com.example.MyTreasury;
 
 import org.junit.Test;
 
