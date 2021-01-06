@@ -9,13 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.MyTreasury.MainActivity">
+        <activity android:name="com.example.MyTreasury.Dashboard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Account"></activity>
+        <activity android:name=".AccountEdit"></activity>
+        <activity android:name=".AddExpense"></activity>
+        <activity android:name=".ExpenseList"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".Register"></activity>
+        <activity android:name=".SingleExpense"></activity>
     </application>
 
 </manifest>
