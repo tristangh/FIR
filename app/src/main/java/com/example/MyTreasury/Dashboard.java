@@ -20,7 +20,7 @@ public class Dashboard extends AppCompatActivity {
     public void onButtonClick(View v) {
         //Log.d("Dashboard error : ", String.valueOf(v.getId()));
         if (v.getId() == R.id.loginpageshow_button) {
-            Intent i = new Intent(Dashboard.this, ExpenseList.class);
+            Intent i = new Intent(Dashboard.this, Login.class);
             startActivity(i);
         }
 
