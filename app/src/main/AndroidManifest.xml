@@ -23,6 +23,7 @@
         <activity android:name=".Login"></activity>
         <activity android:name=".Register"></activity>
         <activity android:name=".SingleExpense"></activity>
+        <activity android:name=".SpreadSheet"></activity>
     </application>
 
 </manifest>
