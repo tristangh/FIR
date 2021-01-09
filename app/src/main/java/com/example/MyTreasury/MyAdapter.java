@@ -62,28 +62,47 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final String[] row = (String[]) myList.get(position);
-        String date = row[0];
-        String cause = row[1];
+        final String date = row[0];
+        final String cause = row[1];
         String balance = row[2];
         String currency = row[3];
         String type = row[4];
-        String sign = "+";
-        if (type == "Debit"){
+        String sign;
+        if (type.equals("Debit")){
+            sign = "+";
+        }
+        else if (type.equals("Credit")) {
             sign = "-";
         }
+        else {
+            sign="";
+        }
+        final String amount = sign+balance+" "+currency;
+        final String state = row[5];
+        final String payer = row[6];
+        final String cat = row[7];
+        final String subcat = row[8];
+//        final String img = row[9];
+  //      final String comments = row[10];
 
-        String amount = sign+balance+" "+currency;
-        int pos = position;
-        //String img_name = item_text.toLowerCase().replaceAll("\\s", "");
         holder.txtDate.setText(date);
         holder.txtCause.setText(cause);
         holder.txtBalance.setText(amount);
+
         holder.mButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   mIntent = new Intent(mContext, myActivity);
-                                                  //String item_text = item.toString();
-                                                  //mIntent.putExtra("Position", pos);
+
+                                                  mIntent.putExtra("Date", date);
+                                                  mIntent.putExtra("Cause", cause);
+                                                  mIntent.putExtra("Amount", amount);
+                                                  mIntent.putExtra("State", state);
+                                                  mIntent.putExtra("Payer", payer);
+                                                  mIntent.putExtra("Category", cat);
+                                                  mIntent.putExtra("Sub-category", subcat);
+                                                  //mIntent.putExtra("Invoice file", img);
+                                                  //mIntent.putExtra("Comments", comments);
                                                   mContext.startActivity(mIntent);
                                               }
                                           }
