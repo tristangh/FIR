@@ -1,17 +1,16 @@
 package com.example.MyTreasury;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.example.financialisepreports.R;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link spreadsheet_fragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class spreadsheet_fragment extends Fragment {
 
@@ -23,6 +22,10 @@ public class spreadsheet_fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public spreadsheet_fragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -42,10 +45,6 @@ public class spreadsheet_fragment extends Fragment {
         return fragment;
     }
 
-    public spreadsheet_fragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +58,6 @@ public class spreadsheet_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_spreadsheet_fragment, container, false);
+        return inflater.inflate(R.layout.activity_sheet, container, false);
     }
 }

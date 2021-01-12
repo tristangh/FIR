@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_account"
+            android:title="@string/account" />
+        <item
             android:id="@+id/nav_expenses"
-            android:icon="@drawable/icon_money"
+            android:icon="@drawable/ic_expenses"
             android:checked="true"
-            android:title="Expenses" />
+            android:title="@string/expenses" />
         <item
-            android:id="@+id/nav_categories"
-            android:icon="@drawable/icon_label"
-            android:title="Categories" />
+            android:id="@+id/nav_spreadsheet"
+            android:icon="@drawable/ic_spreadsheet"
+            android:title="@string/spreadsheet" />
+
         <item
-            android:id="@+id/nav_statistics"
-            android:icon="@drawable/icon_chart"
-            android:title="Statistics" />
-        <item
-            android:id="@+id/nav_reminders"
-            android:icon="@drawable/icon_alarm"
-            android:title="Reminders" />
-        <item
-            android:id="@+id/nav_history"
-            android:icon="@drawable/icon_agenda"
-            android:title="History"/>
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_statistics"
+            android:title="@string/dashboard" />
+
+
+
     </group>
 </menu>

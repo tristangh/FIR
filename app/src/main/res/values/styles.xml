@@ -16,6 +16,7 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
+
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -24,6 +25,7 @@
     <style name="AppTheme.NoActionBar.TransparentStatusBar" parent="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="ExpenseTrackerEditText" parent="Base.Widget.AppCompat.EditText">
