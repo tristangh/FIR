@@ -2,11 +2,19 @@ package com.example.MyTreasury;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,11 +26,35 @@ public class ExpenseList extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
     TextView txt;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.expenseslistview);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+
+                Log.d("Expense List add value listener on data change", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
 
         InputStream InputStreamReader = null;
         Scanner in = null;
@@ -40,25 +72,6 @@ public class ExpenseList extends AppCompatActivity {
             String[] line_array = line.split(",");
             //singleRow_into_list
             transactions_list.add(line_array);
-            /*
-            Date : line_array[0]
-            Cause : line_array[1]
-            Balance : line_array[2]
-            Currency : line_array[3]
-            Type (debit, credit) : line_array[4]
-            State (done, pending) : line_array[5]
-            The payer (Dropdown with member list, association and Guest) : line_array[6]
-            Category : line_array[7]
-            Sub-category : line_array[8]
-            Invoice file (image / pdf) : line_array[9]
-            Comments  : line_array[10]
-             */
-            /*
-            if (transaction_list.contains(line_array[0])) {
-                System.out.println(line_array[0].toString() + " is already in the list");
-            }
-            else {transaction_list.add(line_array[0]);}
-             */
         }
         in.close();
         transactions_list.remove(0);
@@ -80,4 +93,6 @@ public class ExpenseList extends AppCompatActivity {
         mAdapter = new MyAdapter(transactions_list, SingleExpense.class);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+
 }
