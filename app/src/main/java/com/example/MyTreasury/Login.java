@@ -40,7 +40,6 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         emailSignInButton = findViewById(R.id.emailSignInButton);
         emailCreateAccountButton = findViewById(R.id.emailCreateAccountButton);
 
@@ -68,22 +67,44 @@ public class Login extends AppCompatActivity {
 
     public void onButtonClick(View v) {
         //Log.d("Dashboard error : ", String.valueOf(v.getId()));
+
+        String sFieldPassword = fieldPassword.getText().toString();
+        String sFieldEmail = fieldEmail.getText().toString();
+
+        //Create account fill form
         if (v.getId() == R.id.emailCreateAccountButton) {
 
-            createAccount(fieldEmail.getText().toString(),fieldPassword.getText().toString());
-            //Intent i = new Intent(Login.this, Login.class);
-            //startActivity(i);
+
+            if (sFieldEmail.matches("") || sFieldPassword.matches("")) {
+                Toast.makeText(Login.this, "Fields can not be empty.",
+                        Toast.LENGTH_SHORT).show();
+            } else if (sFieldPassword.length() < 5) {
+                Toast.makeText(Login.this, "Password is too short.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                createAccount(fieldEmail.getText().toString(), fieldPassword.getText().toString());
+
+            }
+
+
         }
 
+        //Login account fill form
         if (v.getId() == R.id.emailSignInButton) {
 
-            signIn(fieldEmail.getText().toString(),fieldPassword.getText().toString());
-            //Intent i = new Intent(Login.this, Login.class);
-            //startActivity(i);
+            if (sFieldEmail.matches("") || sFieldPassword.matches("")) {
+                Toast.makeText(Login.this, "Fields can not be empty.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                signIn(fieldEmail.getText().toString(), fieldPassword.getText().toString());
+                //Intent i = new Intent(Login.this, Login.class);
+                //startActivity(i);
+            }
+
+
         }
 
     }
-
 
 
     private void createAccount(String email, String password) {
@@ -108,10 +129,17 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
+
+                            //Open Dashboard view
+                            Intent i = new Intent(Login.this, Dashboard.class);
+                            startActivity(i);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
+
+                            
+                            Toast.makeText(Login.this, "Authentication failed =" + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
@@ -140,7 +168,14 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
+                            Toast.makeText(Login.this, "Login successfull.",
+                                    Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            //Open Dashboard view
+                            Intent i = new Intent(Login.this, Dashboard.class);
+                            startActivity(i);
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -151,11 +186,12 @@ public class Login extends AppCompatActivity {
                             // [START_EXCLUDE]
                             //checkForMultiFactorFailure(task.getException());
                             // [END_EXCLUDE]
+
                         }
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
-                        //    mBinding.status.setText(R.string.auth_failed);
+                            //    mBinding.status.setText(R.string.auth_failed);
                         }
                         //hideProgressBar();
                         // [END_EXCLUDE]
@@ -163,9 +199,6 @@ public class Login extends AppCompatActivity {
                 });
         // [END sign_in_with_email]
     }
-
-
-
 
 
 }
