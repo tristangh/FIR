@@ -4,19 +4,19 @@ import android.widget.EditText;
 
 public class Data {
 
-    String id;
-    String date;
-    String cause;
-    String amount;
-    String currency;
-    String type;
-    String state;
-    String payer;
-    String cat;
-    String subcat;
-    String comments;
-    String img_id_str;
-    String balance;
+    public String id;
+    public String date;
+    public String cause;
+    public String amount;
+    public String currency;
+    public String type;
+    public String state;
+    public String payer;
+    public String cat;
+    public String subcat;
+    public String comments;
+    public String img_id_str;
+    public String balance;
 
     public Data(String id, String date, String cause, String amount, String currency, String type,
                 String state, String payer, String cat, String subcat, String comments, String img_id_str) {

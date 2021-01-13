@@ -1,6 +1,7 @@
 package com.example.MyTreasury;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button emailSignInButton, emailCreateAccountButton;
     private EditText fieldEmail, fieldPassword;
-
+    public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

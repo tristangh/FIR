@@ -33,25 +33,25 @@ import java.util.Map;
 
 public class AddExpense extends AppCompatActivity {
 
-    EditText input_date;
-    EditText input_cause;
-    EditText input_amount;
-    Spinner spinnerCurrency;
-    RadioButton radioCredit;
-    RadioButton radioDebit;
-    Spinner spinnerState;
-    Spinner spinnerPayer;
-    Spinner spinnerCategory;
-    Spinner spinnerSubCategory;
-    EditText input_comments;
-    Button load_button;
-    Button save_button;
+    public EditText input_date;
+    public EditText input_cause;
+    public EditText input_amount;
+    public Spinner spinnerCurrency;
+    public RadioButton radioCredit;
+    public RadioButton radioDebit;
+    public Spinner spinnerState;
+    public Spinner spinnerPayer;
+    public Spinner spinnerCategory;
+    public Spinner spinnerSubCategory;
+    public EditText input_comments;
+    public Button load_button;
+    public Button save_button;
 
     RelativeLayout rel_start_date;
     String startDate;
     Calendar myCalendar = Calendar.getInstance();
 
-    private DatabaseReference mDatabase;
+    public  DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,17 +105,17 @@ public class AddExpense extends AppCompatActivity {
             public void onClick(View view) {
 
                 String id = mDatabase.push().getKey();
-                String date = input_date.getText().toString();
-                String cause = input_cause.getText().toString();
-                String amount = input_amount.getText().toString();
-                String currency = spinnerCurrency.getSelectedItem().toString();
-                String type = "";
-                String state = "";
-                String payer = "";
-                String category = "";
-                String subcategory = "";
-                String comments = input_comments.getText().toString();
-                String img_id = "";
+                String date = "test";//input_date.getText().toString();
+                String cause = "test";//input_cause.getText().toString();
+                String amount = "test";//input_amount.getText().toString();
+                String currency = "test";//spinnerCurrency.getSelectedItem().toString();
+                String type = "test";
+                String state = "test";
+                String payer = "test";
+                String category = "test";
+                String subcategory = "test";
+                String comments = "test";//input_comments.getText().toString();
+                String img_id = "test";
 
                 Data data = new Data(id, date, cause, amount, currency, type,state, payer, category, subcategory, comments, img_id);
                 //.trim()
