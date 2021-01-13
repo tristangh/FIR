@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,36 +32,51 @@ import java.util.Locale;
 import java.util.Map;
 
 public class AddExpense extends AppCompatActivity {
-    EditText enter_type,enter_status,enter_member,enter_category,enter_link,
-            enter_account_name,enter_description,enter_balance,enter_device,enter_address,enter_parent_cat;
-    TextView enter_date;
 
-    Button button;
+    EditText input_date;
+    EditText input_cause;
+    EditText input_amount;
+    Spinner spinnerCurrency;
+    RadioButton radioCredit;
+    RadioButton radioDebit;
+    Spinner spinnerState;
+    Spinner spinnerPayer;
+    Spinner spinnerCategory;
+    Spinner spinnerSubCategory;
+    EditText input_comments;
+    Button load_button;
+    Button save_button;
+
     RelativeLayout rel_start_date;
     String startDate;
     Calendar myCalendar = Calendar.getInstance();
-    String url = "https://script.google.com/macros/s/AKfycbzFHvaFjsZqWWPAAaCfsc79NJkyEKD7pUs0fewvivog-vAUUd-BFIPV/exec";
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sheet);
+        setContentView(R.layout.addexpenseview);
 
-        enter_type = findViewById(R.id.enter_type);
-        enter_date = findViewById(R.id.enter_date);
-        enter_status = findViewById(R.id.enter_status);
-        enter_member = findViewById(R.id.enter_member);
-        enter_category = findViewById(R.id.enter_category);
-        enter_link = findViewById(R.id.enter_link);
-        enter_account_name = findViewById(R.id.enter_account_name);
-        enter_description = findViewById(R.id.enter_description);
-        enter_balance = findViewById(R.id.enter_balance);
-        enter_device = findViewById(R.id.enter_device);
-        enter_address = findViewById(R.id.enter_address);
-        enter_parent_cat = findViewById(R.id.enter_parent_cat);
-        button = findViewById(R.id.button);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData");
+
+        input_date = findViewById(R.id.input_date);
+        input_cause = findViewById(R.id.input_cause);
+        input_amount = findViewById(R.id.input_amount);
+        spinnerCurrency = findViewById(R.id.spinnerCurrency);
+        spinnerCurrency = findViewById(R.id.spinnerCurrency);
+        radioCredit = findViewById(R.id.radioCredit);
+        radioDebit = findViewById(R.id.radioDebit);
+        spinnerState = findViewById(R.id.spinnerState);
+        spinnerPayer = findViewById(R.id.spinnerPayer);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerSubCategory = findViewById(R.id.spinnerSubCategory);
+        input_comments = findViewById(R.id.input_comments);
+        load_button = findViewById(R.id.load_button);
+        save_button = findViewById(R.id.save_button);
+
+/*
         rel_start_date = findViewById(R.id.rel_start_date);
-
         rel_start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,29 +96,48 @@ public class AddExpense extends AppCompatActivity {
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
-        });
+          });
+ */
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                insertData(enter_type.getText().toString().trim(),enter_status.getText().toString().trim(),enter_member.getText().toString().trim(),enter_category.getText().toString().trim(),enter_link.getText().toString().trim(),
-                        enter_account_name.getText().toString().trim(),enter_description.getText().toString().trim(),enter_balance.getText().toString().trim(),enter_device.getText().toString().trim(),enter_address.getText().toString().trim(),
-                        enter_parent_cat.getText().toString().trim(),enter_date.getText().toString().trim());
+
+                String id = mDatabase.push().getKey();
+                String date = input_date.getText().toString();
+                String cause = input_cause.getText().toString();
+                String amount = input_amount.getText().toString();
+                String currency = spinnerCurrency.getSelectedItem().toString();
+                String type = "";
+                String state = "";
+                String payer = "";
+                String category = "";
+                String subcategory = "";
+                String comments = input_comments.getText().toString();
+                String img_id = "";
+
+                Data data = new Data(id, date, cause, amount, currency, type,state, payer, category, subcategory, comments, img_id);
+                //.trim()
+                mDatabase.child(id).setValue(data);
+
             }
         });
 
-        setStartDate();
+        //setStartDate();
     }
 
-
+/*
     private void setStartDate(){
         Calendar startSelectionDate = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
         startDate = sdf.format(startSelectionDate.getTime());
-        enter_date.setText(sdf.format(startSelectionDate.getTime()));
+        input_date.setText(sdf.format(startSelectionDate.getTime()));
 
     }
+
+
 
     DatePickerDialog.OnDateSetListener dateFrom = new DatePickerDialog.OnDateSetListener() {
 
@@ -119,7 +157,7 @@ public class AddExpense extends AppCompatActivity {
     private void updateLabelFrom() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
         startDate = sdf.format(myCalendar.getTime());
-        enter_date.setText(sdf.format(myCalendar.getTime()));
+        input_date.setText(sdf.format(myCalendar.getTime()));
     }
 
     public void insertData(final String enter_type, final String enter_status, final String enter_member,
@@ -133,7 +171,7 @@ public class AddExpense extends AppCompatActivity {
             public void onResponse(String response) {
                 loading.dismiss();
                 Toast.makeText(AddExpense.this,response,Toast.LENGTH_LONG).show();
-                empty();
+                //empty();
 
             }
         }, new Response.ErrorListener() {
@@ -163,12 +201,17 @@ public class AddExpense extends AppCompatActivity {
                 return params;
             }
         };
- //       int socketTimeOut = 50000;
-//        RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
- //       stringRequest.setRetryPolicy(retryPolicy);
+
+//       int socketTimeOut = 50000;
+//       RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+//       stringRequest.setRetryPolicy(retryPolicy);
+
         RequestQueue addQueue = Volley.newRequestQueue(AddExpense.this);
         addQueue.add(stringRequest);
     }
+
+ */
+    /*
     public void empty(){
         enter_type.setText("");
         enter_status.setText("");
@@ -181,10 +224,9 @@ public class AddExpense extends AppCompatActivity {
         enter_device.setText("");
         enter_address.setText("");
         enter_parent_cat.setText("");
-
-
-
     }
+
+     */
 
 
 }
