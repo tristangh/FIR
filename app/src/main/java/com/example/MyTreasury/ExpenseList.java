@@ -35,9 +35,7 @@ public class ExpenseList extends AppCompatActivity {
         setContentView(R.layout.expenseslistview);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
+        myRef = database.getReference("ExpenseData");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
