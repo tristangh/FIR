@@ -1,11 +1,13 @@
 package com.example.MyTreasury;
 
+import android.widget.EditText;
+
 public class Data {
 
     String id;
     String date;
     String cause;
-    int balance;
+    String amount;
     String currency;
     String type;
     String state;
@@ -14,15 +16,15 @@ public class Data {
     String subcat;
     String comments;
     String img_id_str;
-    String amount;
+    String balance;
 
-    public Data(String id, String date, String cause, int balance, String currency, String type,
+    public Data(String id, String date, String cause, String amount, String currency, String type,
                 String state, String payer, String cat, String subcat, String comments, String img_id_str) {
 
         this.id=id;
         this.date=date;
         this.cause=cause;
-        this.balance=balance;
+        this.amount=amount;
         this.currency=currency;
         this.type=type;
         this.state=state;
@@ -43,7 +45,6 @@ public class Data {
             sign="";
         }
 
-        this.amount=sign+balance+" "+currency;
+        this.balance=sign+amount+" "+currency;
     }
-
 }
