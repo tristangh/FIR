@@ -22,4 +22,21 @@
 
 
 
+    <string name="back">Back</string>
+    <string name="invoices">Invoices</string>
+    <string name="todo">TODO</string>
+    <string name="expenses">Expenses</string>
+    <string name="categories">Categories</string>
+    <string name="statistics">Statistics</string>
+    <string name="my_treasory">My Treasory</string>
+    <string name="menu">Menu</string>
+    <string name="my_treasury">treasury</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="spreadsheet">spreadsheet</string>
+    <string name="account">Account</string>
+    <string name="dashboard">Dashboard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

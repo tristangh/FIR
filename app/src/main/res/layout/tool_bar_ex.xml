@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    app:layout_scrollFlags="scroll|enterAlways">
+
+    <LinearLayout
+        android:id="@+id/ll_expense_container"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:gravity="center"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="10/10/15"
+            android:layout_marginBottom="5dp"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/ExpenseTrackerTextView"
+            android:layout_marginBottom="15dp"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:text="Total"/>
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="35sp"
+            style="@style/TitleDescriptionTextStyle"
+            tools:text="+100"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
