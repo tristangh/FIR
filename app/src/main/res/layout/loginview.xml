@@ -1,134 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="4">
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:indeterminate="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        style="?android:attr/progressBarStyleHorizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/icon"
-
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             />
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/titleText"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email Password"
-          />
-
-
-
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical">
+            android:text="My Treasury"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <LinearLayout
-            android:id="@+id/emailPasswordFields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:id="@+id/linearLayout"
+            android:layout_width="348dp"
+            android:layout_height="181dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="252dp"
+            tools:ignore="MissingConstraints">
 
-            <EditText
-                android:id="@+id/fieldEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="138dp">
 
-            <EditText
-                android:id="@+id/fieldPassword"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Password"
-                android:inputType="textPassword" />
+                <EditText
+                    android:id="@+id/edtLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Login Id"
+                    android:padding="10dp"
+                    android:background="@drawable/app_border"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Password"
+                    android:padding="10dp"
+                    android:background="@drawable/app_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLogin" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/emailPasswordButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/emailPasswordFields"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:layout_width="362dp"
+            android:layout_height="242dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="489dp"
+            tools:ignore="MissingConstraints">
 
             <Button
-                android:id="@+id/emailSignInButton"
-                android:layout_width="0dp"
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onButtonClick"
-                android:text="Sign In" />
+                android:background="@drawable/button_round"
+                android:text="Login"
+                android:textColor="@color/white"/>
 
-            <Button
-                android:id="@+id/emailCreateAccountButton"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/forgot_button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onButtonClick"
-                android:text="Create Account" />
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:text="Forgot password" />
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:text="Register Here" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/signedInButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/signOutButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
- />
-
-            <Button
-                android:id="@+id/verifyEmailButton"
-
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
- />
-
-            <Button
-                android:id="@+id/reloadButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
- />
-        </LinearLayout>
-    </RelativeLayout>
+        <ImageButton
+            android:id="@+id/button3"
+            android:layout_width="55dp"
+            android:layout_height="53dp"
+            android:background="#FFFFFF"
+            android:src = "@drawable/ic_back_arrow"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="13dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
