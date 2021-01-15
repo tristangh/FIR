@@ -28,24 +28,24 @@ public class Login extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private Button emailSignInButton, emailCreateAccountButton;
+    private Button emailSignInButton;
     private EditText fieldEmail, fieldPassword;
     public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginview);
+        setContentView(R.layout.login);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
 
-        emailSignInButton = findViewById(R.id.emailSignInButton);
-        emailCreateAccountButton = findViewById(R.id.emailCreateAccountButton);
+        emailSignInButton = findViewById(R.id.btn_login);
 
-        fieldEmail = findViewById(R.id.fieldEmail);
-        fieldPassword = findViewById(R.id.fieldPassword);
+
+        fieldEmail = findViewById(R.id.edt_email);
+        fieldPassword = findViewById(R.id.edt_password);
 
 
         // Buttons
@@ -72,26 +72,9 @@ public class Login extends AppCompatActivity {
         String sFieldPassword = fieldPassword.getText().toString();
         String sFieldEmail = fieldEmail.getText().toString();
 
-        //Create account fill form
-        if (v.getId() == R.id.emailCreateAccountButton) {
-
-
-            if (sFieldEmail.matches("") || sFieldPassword.matches("")) {
-                Toast.makeText(Login.this, "Fields can not be empty.",
-                        Toast.LENGTH_SHORT).show();
-            } else if (sFieldPassword.length() < 5) {
-                Toast.makeText(Login.this, "Password is too short.",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                createAccount(fieldEmail.getText().toString(), fieldPassword.getText().toString());
-
-            }
-
-
-        }
 
         //Login account fill form
-        if (v.getId() == R.id.emailSignInButton) {
+        if (v.getId() == R.id.btn_login) {
 
             if (sFieldEmail.matches("") || sFieldPassword.matches("")) {
                 Toast.makeText(Login.this, "Fields can not be empty.",
@@ -101,62 +84,19 @@ public class Login extends AppCompatActivity {
                 //Intent i = new Intent(Login.this, Login.class);
                 //startActivity(i);
             }
+        }
+
+        if (v.getId() == R.id.btn_register) {
+
+
+            Intent i = new Intent(Login.this, Register.class);
+            startActivity(i);
 
 
         }
 
     }
 
-
-    private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
-
-        /*
-        if (!validateForm()) {
-            return;
-        }
-        */
-
-
-        //showProgressBar();
-
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-
-                            assert user != null;
-                            Toast.makeText(Login.this, "Account created :" + user.getEmail(),
-                                    Toast.LENGTH_SHORT).show();
-
-                            //Open Dashboard view
-                            Intent i = new Intent(Login.this, Dashboard.class);
-                            startActivity(i);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
-                            assert task.getException().getMessage()!=null;
-                            Toast.makeText(Login.this, "Authentication failed :" + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                        }
-
-                        // [START_EXCLUDE]
-                        //hideProgressBar();
-                        // [END_EXCLUDE]
-                    }
-                });
-        // [END create_user_with_email]
-    }
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);

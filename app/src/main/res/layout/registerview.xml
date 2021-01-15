@@ -16,7 +16,7 @@
             android:paddingTop="30dp">
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -30,7 +30,7 @@
                 />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -107,14 +107,14 @@
 
 
             <Button
-                android:id="@+id/btn_add_employee"
+                android:id="@+id/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/button_round"
-                android:textColor="@color/white"
+                android:onClick="onButtonClick"
                 android:text="Register"
-                />
+                android:textColor="@color/white" />
 
 
 
