@@ -22,6 +22,7 @@ import java.util.Scanner;
 
 public class ExpenseList extends AppCompatActivity {
     ArrayList<String[]> transactions_list;
+    ArrayList<String[]> payments_list;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -37,22 +38,7 @@ public class ExpenseList extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("ExpenseData");
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
 
-                Log.d("Expense List add value listener on data change", "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
-            }
-        });
 
         InputStream InputStreamReader = null;
         Scanner in = null;
@@ -90,6 +76,31 @@ public class ExpenseList extends AppCompatActivity {
 
         mAdapter = new MyAdapter(transactions_list, SingleExpense.class);
         mRecyclerView.setAdapter(mAdapter);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                payments_list.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    payments_list.add((String[]) snapshot.getValue());
+                    //mAdapter.notifyDataSetChanged();
+                }
+                String value = dataSnapshot.getValue(String.class);
+
+                Log.d("Expense List add value listener on data change", "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
+        System.out.println(payments_list);
+        Log.d("Firebase list", "Value is: " + payments_list);
+
     }
 
 
