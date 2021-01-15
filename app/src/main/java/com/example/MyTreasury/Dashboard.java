@@ -36,6 +36,11 @@ public class Dashboard extends AppCompatActivity {
             startActivity(i);
         }
 
+        if (v.getId() == R.id.accountpageshow_button) {
+            Intent i = new Intent(Dashboard.this, Account.class);
+            startActivity(i);
+        }
+
     }
 
 

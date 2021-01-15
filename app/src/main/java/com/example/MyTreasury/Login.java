@@ -131,18 +131,21 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
 
+                            assert user != null;
+                            Toast.makeText(Login.this, "Account created :" + user.getEmail(),
+                                    Toast.LENGTH_SHORT).show();
+
                             //Open Dashboard view
                             Intent i = new Intent(Login.this, Dashboard.class);
                             startActivity(i);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Login.this, "Failed to create an account",
-                                    Toast.LENGTH_SHORT).show();
+
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
 
-                            
-                            Toast.makeText(Login.this, "Authentication failed =" + task.getException().getLocalizedMessage(),
+                            assert task.getException().getMessage()!=null;
+                            Toast.makeText(Login.this, "Authentication failed :" + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
