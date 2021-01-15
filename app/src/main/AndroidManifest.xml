@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.MyTreasury.SpreadSheet">
+        <activity android:name="com.example.MyTreasury.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
         <activity android:name=".AccountEdit"></activity>
         <activity android:name=".AddExpense"></activity>
         <activity android:name=".ExpenseList"></activity>
-        <activity android:name=".Login"></activity>
+        <activity android:name=".SpreadSheet"></activity>
         <activity android:name=".Register"></activity>
         <activity android:name=".SingleExpense"></activity>
         <activity android:name=".Dashboard"></activity>

@@ -1,6 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:paddingTop="30dp">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/app_border"
+                android:hint="Email"
+                android:padding="10dp"
+                android:textColorHint="@color/black"
+                android:textSize="14sp"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/app_border"
+                android:hint="Password"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:inputType="textVisiblePassword"
+                android:singleLine="true"
+                />
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/app_border"
+                android:hint="Confirm Password"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:inputType="textVisiblePassword"
+                android:singleLine="true"
+                />
+
+            <EditText
+                android:id="@+id/asso_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/app_border"
+                android:hint="Association Name"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:singleLine="true"
+                />
+
+            <EditText
+                android:id="@+id/school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/app_border"
+                android:hint="School"
+                android:textColorHint="@color/black"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:singleLine="true"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/app_border"
+                android:layout_marginTop="20dp"
+                android:padding="1dp"
+                >
+
+                <Spinner
+                    android:id="@+id/spinner_association"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:paddingEnd="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    >
+                </Spinner>
+
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btn_add_employee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_round"
+                android:textColor="@color/white"
+                android:text="Register"
+                />
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"></RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
