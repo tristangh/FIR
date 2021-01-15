@@ -1,6 +1,5 @@
 package com.example.MyTreasury;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +32,7 @@ public class SingleExpense extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.singleexpenseview);
+        setContentView(R.layout.espenses_singleexpenseview);
 
         getIncomingIntent();
         txt_date = findViewById(R.id.txt_date);

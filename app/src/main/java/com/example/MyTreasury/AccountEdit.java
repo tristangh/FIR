@@ -8,7 +8,7 @@ public class AccountEdit extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.accounteditview);
+        setContentView(R.layout.account_editview);
 
     }
 
