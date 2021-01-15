@@ -24,6 +24,18 @@ public class Dashboard extends AppCompatActivity {
             startActivity(i);
         }
 
+
+        if (v.getId() == R.id.expenselistshow_button) {
+            Intent i = new Intent(Dashboard.this, ExpenseList.class);
+            startActivity(i);
+        }
+
+
+        if (v.getId() == R.id.addexpenseshow_button) {
+            Intent i = new Intent(Dashboard.this, AddExpense.class);
+            startActivity(i);
+        }
+
     }
 
 

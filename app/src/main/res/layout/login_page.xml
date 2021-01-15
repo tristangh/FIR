@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Dashboard">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="361dp"
@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:text="My Treasury app"
+                android:text="My Treasury"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -35,41 +35,11 @@
                 android:id="@+id/loginpageshow_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onButtonClick"
-                android:text="Login Page"
+                android:text="Login page"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:layout_constraintVertical_bias="0.139" />
-
-            <Button
-                android:id="@+id/expenselistshow_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onButtonClick"
-                android:text="ExpenseList"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:layout_constraintVertical_bias="0.276" />
-
-            <Button
-                android:id="@+id/addexpenseshow_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onButtonClick"
-                android:text="AddExpense"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-                app:layout_constraintVertical_bias="0.415" />
-
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

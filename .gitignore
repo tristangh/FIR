@@ -83,3 +83,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+app/google-services.json
+
+.idea/modules/app/google-services.json
