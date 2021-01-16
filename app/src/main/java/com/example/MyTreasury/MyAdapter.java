@@ -1,25 +1,19 @@
 package com.example.MyTreasury;
 
-import android.app.Activity;
 import android.content.Context;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.media.CamcorderProfile.get;
 
@@ -30,25 +24,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public Context mContext;
     public Intent mIntent;
     public Class myActivity;
-
+    public List<Data> DataList;
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public Button mButton;
         public TextView txtDate;
         public TextView txtCause;
-        public TextView txtBalance;
+        public TextView txtAmount;
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
             mButton = itemView.findViewById(R.id.mButton);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtCause = itemView.findViewById(R.id.txtCause);
-            txtBalance = itemView.findViewById(R.id.txtBalance);
+            txtAmount = itemView.findViewById(R.id.txtAmount);
         }
     }
 
-    public MyAdapter(ArrayList<String[]> list, Class activity){
-        myList = list;
+    public MyAdapter(List <Data> DataList, Class activity){
         myActivity = activity;
+        this.DataList = DataList;
     }
 
     @NonNull
@@ -61,35 +55,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final String[] row = (String[]) myList.get(position);
-        final String date = row[0];
-        final String cause = row[1];
-        String balance = row[2];
-        String currency = row[3];
-        String type = row[4];
-        String sign;
-        if (type.equals("Debit")){
-            sign = "+";
-        }
-        else if (type.equals("Credit")) {
-            sign = "-";
-        }
-        else {
-            sign="";
-        }
-        final String amount = sign+balance+" "+currency;
-        final String state = row[5];
-        final String payer = row[6];
-        final String cat = row[7];
-        final String subcat = row[8];
+
+        MyViewHolder viewHolder = (MyViewHolder)holder;
+        Data data = DataList.get(position);
+
+
+        final String date = data.getDate();
+        final String cause = data.getCause();
+        final String amount = data.getAmount();
+        final String state = data.getState();
+        final String payer = data.getPayer();
+        final String cat = data.getCat();
+        final String subcat = data.getSubcat();
 //        final String img = row[9];
   //      final String comments = row[10];
+        viewHolder.txtDate.setText(date);
+        viewHolder.txtAmount.setText(amount);
+        viewHolder.txtCause.setText(cause);
 
-        holder.txtDate.setText(date);
-        holder.txtCause.setText(cause);
-        holder.txtBalance.setText(amount);
-
-        holder.mButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.mButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   mIntent = new Intent(mContext, myActivity);
@@ -117,6 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return myList.size();
+        return DataList.size();
     }
 }

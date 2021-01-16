@@ -22,6 +22,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -52,13 +54,16 @@ public class AddExpense extends AppCompatActivity {
     Calendar myCalendar = Calendar.getInstance();
 
     public  DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addexpenseview);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String user_id = mUser.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
 
         input_date = findViewById(R.id.input_date);
         input_cause = findViewById(R.id.input_cause);
