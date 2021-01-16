@@ -3,6 +3,7 @@ package com.example.MyTreasury;
 import android.content.Context;
 
 import android.content.Intent;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView txtCause;
         public TextView txtAmount;
         public Button deleteButton;
+        public Layout rowLayout;
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
@@ -47,6 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             txtCause = itemView.findViewById(R.id.txtCause);
             txtAmount = itemView.findViewById(R.id.txtAmount);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+
         }
     }
 
@@ -65,9 +68,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        MyViewHolder viewHolder = (MyViewHolder)holder;
+        final MyViewHolder viewHolder = (MyViewHolder)holder;
+
         Data data = DataList.get(position);
 
         final String id = data.getId();
@@ -106,6 +110,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 database_ref.child(id).removeValue();
+                DataList.remove(position);
+                //
+                notifyItemRemoved(position);
+
+                notifyItemRangeChanged(position, DataList.size());
+
+
                 }
         }
         );
