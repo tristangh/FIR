@@ -12,6 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,24 +31,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public Intent mIntent;
     public Class myActivity;
     public List<Data> DataList;
+    public DatabaseReference database_ref;
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public Button mButton;
+        public Button openButton;
         public TextView txtDate;
         public TextView txtCause;
         public TextView txtAmount;
+        public Button deleteButton;
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
-            mButton = itemView.findViewById(R.id.mButton);
+            openButton = itemView.findViewById(R.id.openButton);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtCause = itemView.findViewById(R.id.txtCause);
             txtAmount = itemView.findViewById(R.id.txtAmount);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 
-    public MyAdapter(List <Data> DataList, Class activity){
+    public MyAdapter(List <Data> DataList, Class activity, DatabaseReference database_ref){
         myActivity = activity;
         this.DataList = DataList;
+        this.database_ref = database_ref;
     }
 
     @NonNull
@@ -59,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         MyViewHolder viewHolder = (MyViewHolder)holder;
         Data data = DataList.get(position);
 
-
+        final String id = data.getId();
         final String date = data.getDate();
         final String cause = data.getCause();
         final String amount = data.getAmount();
@@ -73,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         viewHolder.txtAmount.setText(amount);
         viewHolder.txtCause.setText(cause);
 
-        viewHolder.mButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.openButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
                                                   mIntent = new Intent(mContext, myActivity);
@@ -90,6 +101,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                                   mContext.startActivity(mIntent);
                                               }
                                           }
+        );
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database_ref.child(id).removeValue();
+                }
+        }
         );
     }
 

@@ -36,6 +36,7 @@ public class ExpenseList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.expenses_listview);
+
         txt = findViewById(R.id.txt);
         txt.setText("Transactions record");
 
@@ -64,7 +65,7 @@ public class ExpenseList extends AppCompatActivity {
                     payments_list.add(data);
 
                 }
-                mAdapter = new MyAdapter(payments_list, SingleExpense.class);
+                mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);
             }
 

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/mButton"
+            android:id="@+id/openButton"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:backgroundTint="#8FC6BDBD"
@@ -48,6 +48,17 @@
             android:layout_weight="3"
             android:gravity="center"
             android:text="-10$" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:autoText="true"
+            android:background="@android:color/holo_red_dark"
+            android:contextClickable="true"
+            android:text="X"
+            android:textAlignment="gravity" />
 
     </LinearLayout>
 
