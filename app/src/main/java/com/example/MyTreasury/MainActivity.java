@@ -1,83 +1,98 @@
 package com.example.MyTreasury;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.widget.Button;
-import android.content.Intent;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
+
+//import com.google.android.material.navigation.NavigationView;
 
 
-public class MainActivity extends AppCompatActivity {
-
-    Button loginpageview_Button;
-    LinearLayout loginpage;
-    public static final int NAVIGATION_MODE_STANDARD = 0;
-    public static final int NAVIGATION_MODE_TABS = 1;
-    public static final String NAVIGATION_POSITION = "navigation_position";
-
-    private int idSelectedNavigationItem;
-
-    private Toolbar mToolbar;
-
-    private TextView tvDescription;
-    private TextView tvTotal;
-
+public class MainActivity extends AppCompatActivity
+        implements
+        Dashboard.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-
+        this.openFragment(new Dashboard());
     }
-    @ActionBar.NavigationMode
-    public int getNavigationMode() {
-        return NAVIGATION_MODE_STANDARD;
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
-    private void initUI() {
-        DrawerLayout mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        TabLayout mainTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        NavigationView mainNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        FloatingActionButton mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab_main);
-        // Expenses Summary related views
-        LinearLayout llExpensesSummary = (LinearLayout) findViewById(R.id.ll_expense_container);
-        TextView tvDate = (TextView) findViewById(R.id.tv_date);
-        tvDescription = (TextView)findViewById(R.id.tv_description);
-        tvTotal = (TextView)findViewById(R.id.tv_total);
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected( MenuItem item) {
+        int id = item.getItemId();
+        Fragment fragment = null;
+
+        if (id == R.id.nav_dashboard) {
+            fragment = new Dashboard();
+
+        }
+        if (id == R.id.nav_account) {
+            fragment = new Account();
+
+        }
+        else if (id == R.id.nav_expenses) {
+        fragment = new ExpenseList();
+    }
+
+        this.openFragment(fragment);
+
+        DrawerLayout drawer =(DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer((GravityCompat.START));
+        return true;
+    }
+
+    private void openFragment(Fragment fragment){
+        if (fragment !=null){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
+    public void OnFragmentInteractionChangeTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
-
-    
-
-
-
-
 }

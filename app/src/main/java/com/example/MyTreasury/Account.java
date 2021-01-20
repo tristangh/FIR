@@ -1,62 +1,53 @@
 package com.example.MyTreasury;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import static android.content.ContentValues.TAG;
 
-
-public class Account extends AppCompatActivity {
+public class Account extends Fragment {
+    private com.example.MyTreasury.Dashboard.OnFragmentInteractionListener mListener;
+    private Activity activity;
+    Button btn;
 
     private FirebaseAuth mAuth;
     private TextView emailTv;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        //change title
+        if (mListener !=null) {
+            mListener.OnFragmentInteractionChangeTitle("Account");
+        }
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.account_view, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_view);
-
-        emailTv = findViewById(R.id.email_tv);
+        emailTv = v.findViewById(R.id.email_tv);
         emailTv.setText(mAuth.getCurrentUser().getEmail());
 
+        return v;
     }
 
-    public void onButtonClick(View v) {
-        //Log.d("Dashboard error : ", String.valueOf(v.getId()));
-        //sign out button
-        if (v.getId() == R.id.logout_button) {
 
 
-            try {
-                //signing out
-                mAuth.signOut();
-                Log.w(TAG, "signed out successfully");
 
-                Toast.makeText(Account.this, "Signed out successfully",
-                        Toast.LENGTH_SHORT).show();
 
-                //launch Login activity
-                Intent i = new Intent(Account.this, Login.class);
-                startActivity(i);
-
-            } catch (Exception e){
-                // an error
-
-            }
-
-        }
-
+    public interface OnFragmentInteractionListener {
+        void OnFragmentInteractionChangeTitle(String title);
     }
+
 }

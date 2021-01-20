@@ -96,7 +96,7 @@ public class Register extends Activity {
                                     Toast.LENGTH_SHORT).show();
 
                             //Open Dashboard view
-                            Intent i = new Intent(Register.this, Dashboard.class);
+                            Intent i = new Intent(Register.this, MainActivity.class);
                             startActivity(i);
 
                         } else {

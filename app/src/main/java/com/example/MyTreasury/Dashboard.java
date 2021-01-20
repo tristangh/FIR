@@ -1,47 +1,36 @@
 package com.example.MyTreasury;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 
-public class Dashboard extends AppCompatActivity {
-
-
+public class Dashboard extends Fragment {
+    private OnFragmentInteractionListener mListener;
+    private Activity activity;
+    Button btn;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_view);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        //change title
+        if (mListener !=null) {
+            mListener.OnFragmentInteractionChangeTitle("Dashboard");
+        }
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.dashboard_view, container, false);
 
+
+        return v;
     }
 
-    public void onButtonClick(View v) {
-        //Log.d("Dashboard error : ", String.valueOf(v.getId()));
-        if (v.getId() == R.id.loginpageshow_button) {
-            Intent i = new Intent(Dashboard.this, Login.class);
-            startActivity(i);
-        }
-
-
-        if (v.getId() == R.id.expenselistshow_button) {
-            Intent i = new Intent(Dashboard.this, ExpenseList.class);
-            startActivity(i);
-        }
-
-
-        if (v.getId() == R.id.addexpenseshow_button) {
-            Intent i = new Intent(Dashboard.this, AddExpense.class);
-            startActivity(i);
-        }
-
-        if (v.getId() == R.id.accountpageshow_button) {
-            Intent i = new Intent(Dashboard.this, Account.class);
-            startActivity(i);
-        }
-
+    public interface OnFragmentInteractionListener {
+        void OnFragmentInteractionChangeTitle(String title);
     }
-
 
 }

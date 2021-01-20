@@ -116,7 +116,7 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             //Open Dashboard view
-                            Intent i = new Intent(Login.this, Dashboard.class);
+                            Intent i = new Intent(Login.this, MainActivity.class);
                             startActivity(i);
 
                             //updateUI(user);

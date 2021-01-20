@@ -10,10 +10,6 @@
             android:icon="@drawable/ic_expenses"
             android:checked="true"
             android:title="@string/expenses" />
-        <item
-            android:id="@+id/nav_spreadsheet"
-            android:icon="@drawable/ic_spreadsheet"
-            android:title="@string/spreadsheet" />
 
         <item
             android:id="@+id/nav_dashboard"
