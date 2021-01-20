@@ -67,6 +67,7 @@ public class ExpenseList extends AppCompatActivity {
                 }
                 mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

@@ -93,6 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                               public void onClick(View v) {
                                                   mIntent = new Intent(mContext, myActivity);
 
+                                                  mIntent.putExtra("Id", id);
                                                   mIntent.putExtra("Date", date);
                                                   mIntent.putExtra("Cause", cause);
                                                   mIntent.putExtra("Amount", amount);
@@ -109,12 +110,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database_ref.child(id).removeValue();
-                DataList.remove(position);
-                //
-                notifyItemRemoved(position);
+                //database_ref.child(id).removeValue();
+                //DataList.remove(position);
 
-                notifyItemRangeChanged(position, DataList.size());
+                //notifyItemRemoved(position);
+
+                //notifyItemRangeChanged(position, DataList.size());
 
 
                 }
