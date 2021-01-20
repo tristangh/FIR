@@ -109,12 +109,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database_ref.child(id).removeValue();
-                DataList.remove(position);
+                //database_ref.child(id).removeValue();
+                //database_ref.notify
+                //DataList.remove(position);
                 //
-                notifyItemRemoved(position);
+                //notifyItemRemoved(position);
 
-                notifyItemRangeChanged(position, DataList.size());
+                //notifyItemRangeChanged(position, DataList.size());
 
 
                 }
