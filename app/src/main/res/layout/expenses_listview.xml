@@ -8,24 +8,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:weightSum="4"
-        app:layout_constraintHorizontal_weight="4"
-        app:layout_constraintVertical_weight="4">
+        app:layout_constraintHorizontal_weight="5"
+        app:layout_constraintVertical_weight="5">
 
         <TextView
             android:id="@+id/txt"
             android:layout_width="match_parent"
-            android:layout_height="348dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Transactions" />
 
+        <Button
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add expense" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="362dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_height="376dp"
+            android:foregroundGravity="bottom" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

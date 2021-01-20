@@ -1,6 +1,7 @@
 package com.example.MyTreasury;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class ExpenseList extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     FirebaseAuth mAuth;
+    Button button_add;
+    Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +56,20 @@ public class ExpenseList extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.expenses_listview, container, false);
 
+        mContext = this.getContext();
+
         txt = v.findViewById(R.id.txt);
         txt.setText("Transactions record");
+
+        button_add = v.findViewById(R.id.button_add);
+        button_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent mIntent = new Intent(getActivity(), AddExpense.class);
+                startActivity(mIntent);
+            }
+        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mRecyclerView);
 
@@ -76,8 +91,9 @@ public class ExpenseList extends Fragment {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getValue(Data.class)) {
 
+                    System.out.println(" snapshot : " + snapshot);
                     Data data = snapshot.getValue(Data.class);
                     payments_list.add(data);
 
@@ -103,12 +119,8 @@ public class ExpenseList extends Fragment {
                 mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-                //
-                //
                 //notifyItemRemoved(position);
-
                 //notifyItemRangeChanged(position, DataList.size());
-
             }
 
             @Override
@@ -123,7 +135,8 @@ public class ExpenseList extends Fragment {
             }
 
         };
-        myRef.addValueEventListener((ValueEventListener) mChildListener);
+        myRef.addChildEventListener(mChildListener);
+
 
 
         System.out.println("Payment list : " + payments_list);
