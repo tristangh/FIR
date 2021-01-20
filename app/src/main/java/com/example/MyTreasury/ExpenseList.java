@@ -85,13 +85,13 @@ public class ExpenseList extends Fragment {
         FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
         myRef = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
-
+        /*
         ChildEventListener mChildListener = new ChildEventListener() {
 
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-                for (DataSnapshot snapshot : dataSnapshot.getValue(Data.class)) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     System.out.println(" snapshot : " + snapshot);
                     Data data = snapshot.getValue(Data.class);
@@ -140,6 +140,8 @@ public class ExpenseList extends Fragment {
 
 
         System.out.println("Payment list : " + payments_list);
+
+         */
 
 
         return v;
