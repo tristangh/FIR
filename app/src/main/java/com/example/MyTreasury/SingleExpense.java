@@ -84,8 +84,9 @@ public class SingleExpense extends AppCompatActivity {
         button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //database_ref.child(id).removeValue();
-
+                database_ref.child(id).removeValue();
+                Intent IntentBack = new Intent(SingleExpense.this, ExpenseList.class);
+                startActivity(IntentBack);
                 //DataList.remove(position);
 
                 //notifyItemRemoved(position);
