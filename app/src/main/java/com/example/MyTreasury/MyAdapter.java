@@ -39,8 +39,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView txtDate;
         public TextView txtCause;
         public TextView txtAmount;
-        public Button deleteButton;
-        public Layout rowLayout;
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
@@ -48,7 +46,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             txtDate = itemView.findViewById(R.id.txtDate);
             txtCause = itemView.findViewById(R.id.txtCause);
             txtAmount = itemView.findViewById(R.id.txtAmount);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }
     }
@@ -82,8 +79,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final String payer = data.getPayer();
         final String cat = data.getCat();
         final String subcat = data.getSubcat();
-//        final String img = row[9];
-  //      final String comments = row[10];
+
         viewHolder.txtDate.setText(date);
         viewHolder.txtAmount.setText(amount);
         viewHolder.txtCause.setText(cause);
@@ -105,21 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                                   mContext.startActivity(mIntent);
                                               }
                                           }
-        );
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //database_ref.child(id).removeValue();
-                //database_ref.notify
-                //DataList.remove(position);
-                //
-                //notifyItemRemoved(position);
-
-                //notifyItemRangeChanged(position, DataList.size());
-
-
-                }
-        }
         );
     }
 
