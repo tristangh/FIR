@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -85,8 +86,12 @@ public class SingleExpense extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 database_ref.child(id).removeValue();
-                Intent IntentBack = new Intent(SingleExpense.this, ExpenseList.class);
+                Intent IntentBack = new Intent(SingleExpense.this, MainActivity.class);
+                IntentBack.putExtra("Tab", "f");
                 startActivity(IntentBack);
+                //Fragment fragment = new ExpenseList();
+
+                //MainActivity.openFragment(fragment);
                 //DataList.remove(position);
 
                 //notifyItemRemoved(position);
