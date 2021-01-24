@@ -49,17 +49,6 @@
             android:gravity="center"
             android:text="-10$" />
 
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
-            android:autoText="true"
-            android:background="@android:color/holo_red_dark"
-            android:contextClickable="true"
-            android:text="X"
-            android:textAlignment="gravity" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

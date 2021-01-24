@@ -85,15 +85,13 @@ public class ExpenseList extends Fragment {
         FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
         myRef = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
-        /*
-        ChildEventListener mChildListener = new ChildEventListener() {
 
-
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    System.out.println(" snapshot : " + snapshot);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
                     Data data = snapshot.getValue(Data.class);
                     payments_list.add(data);
 
@@ -104,45 +102,12 @@ public class ExpenseList extends Fragment {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    Data data = snapshot.getValue(Data.class);
-                    payments_list.remove(data);
-                }
-
-                mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
-                mRecyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
-                //notifyItemRemoved(position);
-                //notifyItemRangeChanged(position, DataList.size());
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
             }
-
-        };
-        myRef.addChildEventListener(mChildListener);
-
-
-
+        });
         System.out.println("Payment list : " + payments_list);
-
-         */
-
 
         return v;
     }

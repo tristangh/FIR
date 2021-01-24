@@ -3,12 +3,20 @@ package com.example.MyTreasury;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SingleExpense extends AppCompatActivity {
+    String id;
     String date;
     String cause;
     String balance;
@@ -29,10 +37,19 @@ public class SingleExpense extends AppCompatActivity {
     TextView txt_com;
     ImageView img_invoice;
 
+    Button button_delete;
+    FirebaseAuth mAuth;
+    private DatabaseReference database_ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.espenses_singleexpenseview);
+        setContentView(R.layout.singleexpense_view);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String user_id = mUser.getUid();
+        database_ref = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
 
         getIncomingIntent();
         txt_date = findViewById(R.id.txt_date);
@@ -44,6 +61,7 @@ public class SingleExpense extends AppCompatActivity {
         txt_subcat = findViewById(R.id.txt_subcat);
         txt_com = findViewById(R.id.txt_com);
         img_invoice = findViewById(R.id.img_invoice);
+        button_delete = findViewById(R.id.button_delete);
 
         txt_date.setText(date);
         txt_cause.setText(cause);
@@ -64,9 +82,30 @@ public class SingleExpense extends AppCompatActivity {
             }
         });
 
+        button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database_ref.child(id).removeValue();
+                Intent IntentBack = new Intent(SingleExpense.this, MainActivity.class);
+                IntentBack.putExtra("Tab", "f");
+                startActivity(IntentBack);
+                //Fragment fragment = new ExpenseList();
+
+                //MainActivity.openFragment(fragment);
+                //DataList.remove(position);
+
+                //notifyItemRemoved(position);
+
+                //notifyItemRangeChanged(position, DataList.size());
+            }
+        });
+
     }
 
     private void getIncomingIntent(){
+        if (getIntent().hasExtra("Id")) {
+            id = getIntent().getStringExtra("Id");
+        }
         if (getIntent().hasExtra("Date")) {
             date = getIntent().getStringExtra("Date");
         }
@@ -96,7 +135,7 @@ public class SingleExpense extends AppCompatActivity {
         }
         */
 
-        }
     }
+}
 
 

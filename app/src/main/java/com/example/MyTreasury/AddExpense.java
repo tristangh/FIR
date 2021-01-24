@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -125,6 +126,8 @@ public class AddExpense extends AppCompatActivity {
                 Data data = new Data(id, date, cause, amount, currency, type,state, payer, category, subcategory, comments, img_id);
                 //.trim()
                 mDatabase.child(id).setValue(data);
+                Intent IntentBack = new Intent(AddExpense.this, MainActivity.class);
+                startActivity(IntentBack);
 
             }
         });
