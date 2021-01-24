@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Account"></activity>
+        <activity android:name=".AddMember"></activity>
+        <activity android:name=".Account" />
         <activity
             android:name=".Invoice"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -27,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".AccountEdit" />
         <activity android:name=".ExpenseList" />
         <activity android:name=".Dashboard" />

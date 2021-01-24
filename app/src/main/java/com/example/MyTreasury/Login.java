@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        emailSignInButton = findViewById(R.id.btn_login);
+        emailSignInButton = findViewById(R.id.btn_addMember);
 
 
         fieldEmail = findViewById(R.id.edt_email);
@@ -71,7 +71,7 @@ public class Login extends AppCompatActivity {
 
 
         //Login account fill form
-        if (v.getId() == R.id.btn_login) {
+        if (v.getId() == R.id.btn_addMember) {
 
             if (sFieldEmail.matches("") || sFieldPassword.matches("")) {
                 Toast.makeText(Login.this, "Fields can not be empty.",
