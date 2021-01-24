@@ -1,8 +1,10 @@
 package com.example.MyTreasury;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 //import com.google.android.material.navigation.NavigationView;
@@ -41,6 +44,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         this.openFragment(new Dashboard());
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddExpense.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public void onBackPressed() {
@@ -95,4 +106,5 @@ public class MainActivity extends AppCompatActivity
     public void OnFragmentInteractionChangeTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
+
 }
