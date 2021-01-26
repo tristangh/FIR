@@ -111,22 +111,23 @@ public class AddExpense extends AppCompatActivity {
             public void onClick(View view) {
 
                 String id = mDatabase.push().getKey();
-                String date = "test";//input_date.getText().toString();
-                String cause = "test";//input_cause.getText().toString();
-                String amount = "test";//input_amount.getText().toString();
+                String date = input_date.getText().toString();
+                String cause = input_cause.getText().toString();
+                String amount = input_amount.getText().toString();
                 String currency = "test";//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
                 String state = "test";
                 String payer = "test";
                 String category = "test";
                 String subcategory = "test";
-                String comments = "test";//input_comments.getText().toString();
+                String comments = input_comments.getText().toString();
                 String img_id = "test";
 
                 Data data = new Data(id, date, cause, amount, currency, type,state, payer, category, subcategory, comments, img_id);
                 //.trim()
                 mDatabase.child(id).setValue(data);
                 Intent IntentBack = new Intent(AddExpense.this, MainActivity.class);
+                IntentBack.putExtra("frgToLoad", 2);
                 startActivity(IntentBack);
 
             }

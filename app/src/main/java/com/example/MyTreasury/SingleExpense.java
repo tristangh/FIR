@@ -26,6 +26,7 @@ public class SingleExpense extends AppCompatActivity {
     String subcat;
     String comments;
     String img_id_str = "facture_1.jpg";
+    String position;
 
     TextView txt_date;
     TextView txt_cause;
@@ -87,22 +88,27 @@ public class SingleExpense extends AppCompatActivity {
             public void onClick(View v) {
                 database_ref.child(id).removeValue();
                 Intent IntentBack = new Intent(SingleExpense.this, MainActivity.class);
-                IntentBack.putExtra("Tab", "f");
+                IntentBack.putExtra("frgToLoad", 2);
                 startActivity(IntentBack);
-                //Fragment fragment = new ExpenseList();
+                //ExpenseList.mAdapter.notifyDataSetChanged();
 
-                //MainActivity.openFragment(fragment);
+                //ExpenseList.mAdapter.notifyItemRemoved(Integer.parseInt(position));
+                //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
+                //MyAdapter.MyViewHolder.
                 //DataList.remove(position);
 
-                //notifyItemRemoved(position);
+                //
 
-                //notifyItemRangeChanged(position, DataList.size());
+                //
             }
         });
 
     }
 
     private void getIncomingIntent(){
+        if (getIntent().hasExtra("Position")) {
+            position = getIntent().getStringExtra("Position");
+        }
         if (getIntent().hasExtra("Id")) {
             id = getIntent().getStringExtra("Id");
         }

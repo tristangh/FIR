@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public Context mContext;
     public Intent mIntent;
     public Class myActivity;
-    public List<Data> DataList;
+    public static List<Data> DataList;
     public DatabaseReference database_ref;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -88,7 +88,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                               @Override
                                               public void onClick(View v) {
                                                   mIntent = new Intent(mContext, myActivity);
-
+                                                  mIntent.putExtra("Position", position);
+                                                  mIntent.putExtra("Id", id);
                                                   mIntent.putExtra("Date", date);
                                                   mIntent.putExtra("Cause", cause);
                                                   mIntent.putExtra("Amount", amount);
