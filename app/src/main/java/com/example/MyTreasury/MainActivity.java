@@ -43,7 +43,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.openFragment(new Dashboard());
+
+        int intentFragment = getIntent().getExtras().getInt("frgToLoad");
+
+        switch (intentFragment){
+            case 1:
+                this.openFragment(new Dashboard());
+                break;
+            case 2:
+                this.openFragment(new ExpenseList());
+                break;
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

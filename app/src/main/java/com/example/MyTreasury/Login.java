@@ -117,6 +117,7 @@ public class Login extends AppCompatActivity {
 
                             //Open Dashboard view
                             Intent i = new Intent(Login.this, MainActivity.class);
+                            i.putExtra("frgToLoad", 1);
                             startActivity(i);
 
                             //updateUI(user);

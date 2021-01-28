@@ -37,13 +37,12 @@ public class ExpenseList extends Fragment {
     ArrayList<String[]> transactions_list;
     List<Data> payments_list;
     RecyclerView mRecyclerView;
-    RecyclerView.Adapter mAdapter;
+    public static RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
     TextView txt;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     FirebaseAuth mAuth;
-    Button button_add;
     Context mContext;
 
     @Override
@@ -60,16 +59,6 @@ public class ExpenseList extends Fragment {
 
         txt = v.findViewById(R.id.txt);
         txt.setText("Transactions record");
-
-        button_add = v.findViewById(R.id.button_add);
-        button_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent mIntent = new Intent(getActivity(), AddExpense.class);
-                startActivity(mIntent);
-            }
-        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mRecyclerView);
 
@@ -89,10 +78,17 @@ public class ExpenseList extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (payments_list != null) {
+                    payments_list.clear();
+                }
+
+
+
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     Data data = snapshot.getValue(Data.class);
+                    //total = total + data.amount;
                     payments_list.add(data);
 
                 }

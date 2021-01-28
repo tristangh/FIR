@@ -97,6 +97,7 @@ public class Register extends Activity {
 
                             //Open Dashboard view
                             Intent i = new Intent(Register.this, MainActivity.class);
+                            i.putExtra("frgToLoad", 1);
                             startActivity(i);
 
                         } else {

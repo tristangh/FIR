@@ -22,12 +22,6 @@
             android:gravity="center"
             android:text="Transactions" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add expense" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="362dp"

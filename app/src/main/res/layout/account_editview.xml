@@ -57,18 +57,17 @@
                 />
 
             <EditText
-                android:id="@+id/asso_name"
+                android:id="@+id/edt_asso_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:hint="Association Name"
-                android:padding="10dp"
-                android:textColorHint="@color/black"
-                android:textSize="14sp"
                 android:inputType="text"
+                android:padding="10dp"
                 android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -81,18 +80,17 @@
                 />
 
             <EditText
-                android:id="@+id/school"
+                android:id="@+id/edt_school"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:hint="School"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
                 android:inputType="textVisiblePassword"
+                android:padding="10dp"
                 android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -133,18 +131,17 @@
                 />
 
             <EditText
-                android:id="@+id/purpose"
+                android:id="@+id/edt_purpose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:hint="Purpose"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
                 android:inputType="text"
+                android:padding="10dp"
                 android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -157,18 +154,17 @@
                 />
 
             <EditText
-                android:id="@+id/link"
+                android:id="@+id/edt_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:hint="Link to Facebook Page"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
                 android:inputType="text"
+                android:padding="10dp"
                 android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -179,6 +175,11 @@
                 android:textStyle="bold"
                 android:text="Member:"
                 />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/memberRecylcer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -199,7 +200,7 @@
                 <Button
                     android:id="@+id/addmember_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="5dp"
                     android:text="Add" />
@@ -217,18 +218,17 @@
                 />
 
             <EditText
-                android:id="@+id/status"
+                android:id="@+id/edt_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:hint="Status"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
                 android:inputType="text"
+                android:padding="10dp"
                 android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
 
             <Button

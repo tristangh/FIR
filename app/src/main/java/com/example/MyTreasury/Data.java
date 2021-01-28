@@ -1,9 +1,8 @@
 package com.example.MyTreasury;
 
-import android.widget.EditText;
-
 public class Data {
 
+    //for Transaction
     public String id;
     public String date;
     public String cause;
@@ -17,6 +16,12 @@ public class Data {
     public String comments;
     public String img_id_str;
     public String balance;
+
+    //for Account Info
+    public String assoName, school, purpose, link, status;
+
+
+    //Data object for addExpenses
 
     public Data(String id, String date, String cause, String amount, String currency, String type,
                 String state, String payer, String cat, String subcat, String comments, String img_id_str) {
@@ -47,6 +52,24 @@ public class Data {
 
         this.balance=sign+amount+" "+currency;
     }
+
+
+    //data object for AccountInfo
+
+    public Data(String id, String date, String assoName, String school, String purpose, String link,
+                                String status) {
+
+        this.id=id;
+        this.date=date;
+        this.assoName=assoName;
+        this.school=school;
+        this.purpose=purpose;
+        this.link=link;
+        this.status=status;
+
+    }
+
+
 
     public String getId() {
         return id;
