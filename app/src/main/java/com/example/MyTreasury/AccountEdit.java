@@ -1,9 +1,9 @@
 package com.example.MyTreasury;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,19 +15,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 public class AccountEdit extends Activity {
     Spinner association_spinner,asso_mem;
-    String item;
+    String selectedSpinnerType;
     Button addMemberButton, updateButton;
     EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status;
     RecyclerView memberRecylcer;
@@ -54,7 +56,7 @@ public class AccountEdit extends Activity {
         asso_mem = findViewById(R.id.spinner_mem);
         memberRecylcer = findViewById(R.id.memberRecylcer);
 
-        setSpinnerItems();
+        setSpinnerType();
         setSpinnerMem();
 
 
@@ -72,6 +74,9 @@ public class AccountEdit extends Activity {
         edt_purpose = findViewById(R.id.edt_purpose);
         edt_link = findViewById(R.id.edt_link);
         edt_status = findViewById(R.id.edt_status);
+
+
+
 
         addMemberButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,12 +98,13 @@ public class AccountEdit extends Activity {
                 String date = "date actuelle";
                 String assoName = edt_asso_name.getText().toString();
                 String school = edt_school.getText().toString();
+                String type = selectedSpinnerType;
                 String purpose = edt_purpose.getText().toString();
                 String link = edt_link.getText().toString();
                 String status = edt_status.getText().toString();
 
 
-                Data data = new Data(id, date, assoName,school,purpose,link,status);
+                Data data = new Data(id, date, assoName,school,type,purpose,link,status);
                 //.trim()
                 mDatabase.setValue(data);
                 Intent IntentBack = new Intent(AccountEdit.this, Account.class);
@@ -112,8 +118,8 @@ public class AccountEdit extends Activity {
     }
 
 
-//Spinner
-    private void setSpinnerItems(){
+    //Spinner
+    private void setSpinnerType(){
 
         final ArrayList<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("Sportive");
@@ -129,9 +135,11 @@ public class AccountEdit extends Activity {
         association_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+               // ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
 
-                item = spinnerArray.get(position);
+                selectedSpinnerType = spinnerArray.get(position);
+                Log.d(TAG, "Selected Item:" + selectedSpinnerType);
+
 
             }
 
@@ -164,7 +172,7 @@ public class AccountEdit extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
 
-                item = spinnerArray.get(position);
+                selectedSpinnerType = spinnerArray.get(position);
 
             }
 
