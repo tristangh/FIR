@@ -28,8 +28,8 @@ import java.util.ArrayList;
 public class AccountEdit extends Activity {
     Spinner association_spinner,asso_mem;
     String item;
-    Button addMemberButton, updateButton;
-    EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status;
+    Button addMemberButton, updateButton, btn_addMember;
+    EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status, edt_add_mem;
     RecyclerView memberRecylcer;
     RecyclerView.LayoutManager layoutManager;
 
@@ -46,7 +46,7 @@ public class AccountEdit extends Activity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("AccountInfo");
+        mDatabase = FirebaseDatabase.getInstance().getReference(user_id);
 
 
         //spinner init
@@ -61,6 +61,7 @@ public class AccountEdit extends Activity {
         //button init
         addMemberButton = findViewById(R.id.addmember_button);
         updateButton = findViewById(R.id.btn_update);
+        btn_addMember = findViewById(R.id.btn_addMember);
 
         //recycler init
         layoutManager = new LinearLayoutManager(this);
@@ -72,14 +73,17 @@ public class AccountEdit extends Activity {
         edt_purpose = findViewById(R.id.edt_purpose);
         edt_link = findViewById(R.id.edt_link);
         edt_status = findViewById(R.id.edt_status);
+        edt_add_mem = findViewById(R.id.edt_add_mem);
 
-        addMemberButton.setOnClickListener(new View.OnClickListener() {
+        btn_addMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String member = edt_add_mem.getText().toString();
 
-                Intent i = new Intent(AccountEdit.this, AddMember.class);
-                startActivity(i);
+                mDatabase.child("Members").push().setValue(member);
+                edt_add_mem.setText("");
+
 
             }
         });
@@ -89,7 +93,7 @@ public class AccountEdit extends Activity {
             public void onClick(View v) {
 
 
-                String id = mDatabase.push().getKey();
+                String id = mDatabase.child("AccountInfo").push().getKey();
                 String date = "date actuelle";
                 String assoName = edt_asso_name.getText().toString();
                 String school = edt_school.getText().toString();
@@ -100,7 +104,7 @@ public class AccountEdit extends Activity {
 
                 Data data = new Data(id, date, assoName,school,purpose,link,status);
                 //.trim()
-                mDatabase.setValue(data);
+                mDatabase.child("AccountInfo").setValue(data);
                 Intent IntentBack = new Intent(AccountEdit.this, Account.class);
                 IntentBack.putExtra("frgToLoad", 2);
                 startActivity(IntentBack);
