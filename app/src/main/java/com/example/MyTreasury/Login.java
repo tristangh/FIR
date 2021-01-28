@@ -44,8 +44,8 @@ public class Login extends AppCompatActivity {
         fieldEmail = findViewById(R.id.edt_email);
         fieldPassword = findViewById(R.id.edt_password);
 
-        fieldEmail.setText("essai1@gmail.com");
-        fieldPassword.setText("123456");
+        //fieldEmail.setText("essai1@gmail.com");
+        //fieldPassword.setText("123456");
 
     }
 

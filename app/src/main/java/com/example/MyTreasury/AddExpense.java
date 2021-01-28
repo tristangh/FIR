@@ -1,12 +1,24 @@
 package com.example.MyTreasury;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,15 +33,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class AddExpense extends AppCompatActivity {
 
@@ -38,13 +56,32 @@ public class AddExpense extends AppCompatActivity {
 
 
     public EditText input_date, input_cause, input_amount;
-    public Spinner spinnerCurrency;
     public RadioButton radioCredit, radioDebit;
-    public Spinner spinnerState, spinnerPayer, spinnerCategory, spinnerSubCategory;
     public EditText input_comments;
-    public Button btnSelect , btnUpload, save_button;
+    public Button load_button , btnUpload, save_button;
     private ImageView imageView;
 
+    //Spinner currency
+    public Spinner spinnerCurrency;
+    public String selectedSpinnerCurr;
+
+    //Spinner categories OK
+    public Spinner spinnerCategory;
+    public String selectedSpinnerCat;
+
+    //Spinner state
+    public Spinner spinnerState;
+    public String selectedSpinnerState;
+
+    //Spinner from (members)
+    public Spinner spinnerPayer;
+    public String selectedSpinnerPayer;
+
+/*
+    RelativeLayout rel_start_date;
+    String startDate;
+    Calendar myCalendar = Calendar.getInstance();
+    */
     // Uri indicates, where the image will be picked from
     private Uri filePath;
 
@@ -55,7 +92,12 @@ public class AddExpense extends AppCompatActivity {
 
 
     public  DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    FirebaseUser mUser = mAuth.getCurrentUser();
+    String user_id = mUser.getUid();
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +105,25 @@ public class AddExpense extends AppCompatActivity {
         setContentView(R.layout.addexpenseview);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        String user_id = mUser.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
+
+
+
+
+
+
+
 
         input_date = findViewById(R.id.input_date);
         input_cause = findViewById(R.id.input_cause);
         input_amount = findViewById(R.id.input_amount);
-        spinnerCurrency = findViewById(R.id.spinnerCurrency);
         spinnerCurrency = findViewById(R.id.spinnerCurrency);
         radioCredit = findViewById(R.id.radioCredit);
         radioDebit = findViewById(R.id.radioDebit);
         spinnerState = findViewById(R.id.spinnerState);
         spinnerPayer = findViewById(R.id.spinnerPayer);
         spinnerCategory = findViewById(R.id.spinnerCategory);
-        spinnerSubCategory = findViewById(R.id.spinnerSubCategory);
         input_comments = findViewById(R.id.input_comments);
-        btnSelect = findViewById(R.id.load_invoice_button);
+        load_button = findViewById(R.id.load_invoice_button);
         save_button = findViewById(R.id.save_button);
         //mImageView = findViewById(R.id.image_view);
 
@@ -90,13 +134,18 @@ public class AddExpense extends AppCompatActivity {
 
 
         // on pressing btnSelect SelectImage() is called
-        btnSelect.setOnClickListener(new View.OnClickListener() {
+        load_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SelectImage();
             }
         });
 
+
+
+        createSpinnerCategory();
+        createSpinnerPayer();
+        mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
 
 
 
@@ -111,8 +160,8 @@ public class AddExpense extends AppCompatActivity {
                 String currency = "test";//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
                 String state = "test";
-                String payer = "test";
-                String category = "test";
+                String payer = selectedSpinnerPayer;
+                String category = selectedSpinnerCat;
                 String subcategory = "test";
                 String comments = input_comments.getText().toString();
                 String img_id = UUID.randomUUID().toString();
@@ -126,6 +175,7 @@ public class AddExpense extends AppCompatActivity {
             }
         });
     }
+
     //setStartDate();
     // Select Image method
     private void SelectImage()
@@ -180,6 +230,7 @@ public class AddExpense extends AppCompatActivity {
             }
         }
     }
+
     // UploadImage method
     private void uploadImage(String path)
     {
@@ -251,6 +302,112 @@ public class AddExpense extends AppCompatActivity {
                             });
         }
     }
+
+        private void createSpinnerCategory() {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference fDatabaseRoot = database.getReference(user_id);
+
+            final List<String> categoriesArrayList = new ArrayList<String>();
+
+            fDatabaseRoot.child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    for (DataSnapshot addressSnapshot: dataSnapshot.getChildren()) {
+                        String propertyAddress = addressSnapshot.child("noun").getValue(String.class);
+                        if (propertyAddress!=null){
+                            categoriesArrayList.add(propertyAddress);
+                        }
+                    }
+
+                    System.out.println("list of categories : " +categoriesArrayList);
+
+                    ArrayAdapter<String> addressAdapter = new ArrayAdapter<String>(AddExpense.this, android.R.layout.simple_spinner_item, categoriesArrayList);
+                    addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerCategory.setAdapter(addressAdapter);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+
+            });
+
+            spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    selectedSpinnerCat = categoriesArrayList.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
+
+
+
+
+        }
+
+        private void createSpinnerPayer() {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference fDatabaseRoot = database.getReference(user_id);
+
+            final List<String> membersArrayList = new ArrayList<String>();
+
+            fDatabaseRoot.child("Members").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    for (DataSnapshot addressSnapshot: dataSnapshot.getChildren()) {
+                        String propertyAddress = addressSnapshot.child("noun").getValue(String.class);
+                        if (propertyAddress!=null){
+                            membersArrayList.add(propertyAddress);
+                        }
+                    }
+
+                    System.out.println("list of categories : " +membersArrayList);
+
+                    ArrayAdapter<String> addressAdapter = new ArrayAdapter<String>(AddExpense.this, android.R.layout.simple_spinner_item, membersArrayList);
+                    addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerPayer.setAdapter(addressAdapter);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+
+            });
+
+            spinnerPayer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    selectedSpinnerPayer = membersArrayList.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
+
+
+
+
+        }
 
     /*
         private void setStartDate(){
@@ -354,3 +511,4 @@ public class AddExpense extends AppCompatActivity {
          */
 
 }
+
