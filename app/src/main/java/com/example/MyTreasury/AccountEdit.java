@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,13 +80,13 @@ public class AccountEdit extends Activity {
 
         //Members recycler init
         //layoutManager = new GridLayoutManager(this, 6);
-        layoutManager_member = new FlexboxLayoutManager(this, FlexDirection.ROW);
+        layoutManager_member = new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP);
         //layoutManager_member.setFlexDirection(FlexDirection.ROW);
         memberRecylerView.setLayoutManager(layoutManager_member);
         members_list = new ArrayList<Data>();
 
         //Categories recycler init
-        layoutManager_category = new FlexboxLayoutManager(this, FlexDirection.ROW);
+        layoutManager_category = new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP);
         //layoutManager_category.setFlexDirection();
         categoryRecylerView.setLayoutManager(layoutManager_category);
         categories_list = new ArrayList<Data>();
