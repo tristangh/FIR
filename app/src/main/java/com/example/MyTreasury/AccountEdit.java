@@ -1,6 +1,5 @@
 package com.example.MyTreasury;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexDirection;
@@ -38,11 +35,11 @@ public class AccountEdit extends Activity {
     EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status, edt_add_mem;
     RecyclerView memberRecylerView;
     FlexboxLayoutManager layoutManager_member;
-    List<String> members_list;
+    List<Data> members_list;
     public static RecyclerView.Adapter MemberAdapter;
 
     RecyclerView categoryRecylerView;
-    List<String> categories_list;
+    List<Data> categories_list;
     Button btn_addCategory;
     EditText edt_add_cat;
     FlexboxLayoutManager layoutManager_category;
@@ -85,13 +82,13 @@ public class AccountEdit extends Activity {
         layoutManager_member = new FlexboxLayoutManager(this, FlexDirection.ROW);
         //layoutManager_member.setFlexDirection(FlexDirection.ROW);
         memberRecylerView.setLayoutManager(layoutManager_member);
-        members_list = new ArrayList<>();
+        members_list = new ArrayList<Data>();
 
         //Categories recycler init
         layoutManager_category = new FlexboxLayoutManager(this, FlexDirection.ROW);
         //layoutManager_category.setFlexDirection();
         categoryRecylerView.setLayoutManager(layoutManager_category);
-        categories_list = new ArrayList<>();
+        categories_list = new ArrayList<Data>();
 
         //edittext init
         edt_asso_name = findViewById(R.id.edt_asso_name);
@@ -106,11 +103,12 @@ public class AccountEdit extends Activity {
             @Override
             public void onClick(View v) {
 
-                String member = edt_add_mem.getText().toString();
-
-                mDatabase.child("Members").push().setValue(member);
+                String id_member = mDatabase.child("Members").push().getKey();
+                String member_name = edt_add_mem.getText().toString();
+                Data member_data = new Data(id_member, member_name);
+                mDatabase.child("Members").child(id_member).setValue(member_data);
+                //mDatabase.child("Members").push().setValue(member_name);
                 edt_add_mem.setText("");
-
 
             }
         });
@@ -119,10 +117,12 @@ public class AccountEdit extends Activity {
             @Override
             public void onClick(View v) {
 
-                String category = edt_add_cat.getText().toString();
-
-                mDatabase.child("Categories").push().setValue(category);
-                edt_add_cat.setText("");
+                String id_category = mDatabase.child("Categories").push().getKey();
+                String cat_name = edt_add_cat.getText().toString();
+                Data cat_data = new Data(id_category, cat_name);
+                mDatabase.child("Categories").child(id_category).setValue(cat_data);
+                //mDatabase.child("Members").push().setValue(member_name);
+                edt_add_mem.setText("");
 
 
             }
@@ -137,8 +137,11 @@ public class AccountEdit extends Activity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                    String member = snapshot.getValue().toString();
-                    members_list.add(member);
+                    Data data = snapshot.getValue(Data.class);
+                    members_list.add(data);
+                    //String member = snapshot.getValue().toString();
+                    //String id = mDatabase.child("Members").push().getKey();
+                    //members_list.add(member);
 
                 }
                 MemberAdapter = new EditAdapter(members_list, mDatabase.child("Members"));
@@ -162,8 +165,11 @@ public class AccountEdit extends Activity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                    String category = snapshot.getValue().toString();
-                    categories_list.add(category);
+                    Data data = snapshot.getValue(Data.class);
+                    categories_list.add(data);
+                    //String category = snapshot.getValue().toString();
+                    //categories_list.add(category);
+
 
                 }
                 CategoryAdapter = new EditAdapter(categories_list, mDatabase.child("Categories"));
@@ -178,12 +184,14 @@ public class AccountEdit extends Activity {
             }
         });
 
+
+
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                String id = mDatabase.child("AccountInfo").push().getKey();
+                String id_account = mDatabase.child("AccountInfo").push().getKey();
                 String date = "date actuelle";
                 String assoName = edt_asso_name.getText().toString();
                 String school = edt_school.getText().toString();
@@ -191,10 +199,12 @@ public class AccountEdit extends Activity {
                 String link = edt_link.getText().toString();
                 String status = edt_status.getText().toString();
 
-
-                Data data = new Data(id, date, assoName,school,purpose,link,status);
+                Data account_data = new Data(id_account, date, assoName,school,purpose,link,status);
                 //.trim()
-                mDatabase.child("AccountInfo").setValue(data);
+                mDatabase.child("AccountInfo").setValue(account_data);
+
+
+
                 Intent IntentBack = new Intent(AccountEdit.this, Account.class);
                 IntentBack.putExtra("frgToLoad", 2);
                 startActivity(IntentBack);
