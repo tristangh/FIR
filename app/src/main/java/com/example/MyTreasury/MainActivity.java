@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity
             case 2:
                 this.openFragment(new ExpenseList());
                 break;
+            case 3:
+                this.openFragment(new Account());
+                break;
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

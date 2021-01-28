@@ -56,8 +56,7 @@ public class AccountEdit extends Activity {
         asso_mem = findViewById(R.id.spinner_mem);
         memberRecylcer = findViewById(R.id.memberRecylcer);
 
-        setSpinnerType();
-        setSpinnerMem();
+
 
 
         //button init
@@ -75,7 +74,10 @@ public class AccountEdit extends Activity {
         edt_link = findViewById(R.id.edt_link);
         edt_status = findViewById(R.id.edt_status);
 
+        getAndSetIncomingIntent();
 
+        setSpinnerType();
+        //setSpinnerMem();
 
 
         addMemberButton.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +96,8 @@ public class AccountEdit extends Activity {
             public void onClick(View v) {
 
 
+
+
                 String id = mDatabase.push().getKey();
                 String date = "date actuelle";
                 String assoName = edt_asso_name.getText().toString();
@@ -107,8 +111,8 @@ public class AccountEdit extends Activity {
                 Data data = new Data(id, date, assoName,school,type,purpose,link,status);
                 //.trim()
                 mDatabase.setValue(data);
-                Intent IntentBack = new Intent(AccountEdit.this, Account.class);
-                IntentBack.putExtra("frgToLoad", 2);
+                Intent IntentBack = new Intent(AccountEdit.this, MainActivity.class);
+                IntentBack.putExtra("frgToLoad", 3);
                 startActivity(IntentBack);
 
             }
@@ -117,6 +121,30 @@ public class AccountEdit extends Activity {
 
     }
 
+
+    //get intents from account
+    private void getAndSetIncomingIntent(){
+        if (getIntent().hasExtra("asso")) {
+            Log.d(TAG, getIntent().getStringExtra("asso"));
+            edt_asso_name.setText(getIntent().getStringExtra("asso"));
+        }
+        if (getIntent().hasExtra("school")) {
+            edt_school.setText(getIntent().getStringExtra("school"));
+        }
+        if (getIntent().hasExtra("purpose")) {
+            edt_purpose.setText(getIntent().getStringExtra("purpose"));
+        }
+        if (getIntent().hasExtra("link")) {
+            edt_link.setText(getIntent().getStringExtra("link"));
+        }
+        if (getIntent().hasExtra("status")) {
+            edt_status.setText(getIntent().getStringExtra("status"));
+        }
+        if (getIntent().hasExtra("type")) {
+            selectedSpinnerType = getIntent().getStringExtra("type");
+        }
+
+    }
 
     //Spinner
     private void setSpinnerType(){
@@ -152,38 +180,9 @@ public class AccountEdit extends Activity {
 
     }
 
-    private void setSpinnerMem(){
-
-        final ArrayList<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Nithya");
-        spinnerArray.add("Tristan");
-        spinnerArray.add("Amine");
-        spinnerArray.add("Paul");
-        spinnerArray.add("Jean");
-
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_dropdown_item,
-                spinnerArray);
-        asso_mem.setAdapter(spinnerArrayAdapter);
-
-
-        asso_mem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
-
-                selectedSpinnerType = spinnerArray.get(position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
 
 
 }
+
+
+
