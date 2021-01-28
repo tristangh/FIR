@@ -36,6 +36,7 @@ public class Account extends Fragment {
 
     private FirebaseAuth mAuth;
     private TextView asso, school, type, purpose, link, email, status;
+    private Data data;
 
     public DatabaseReference myRef;
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -74,7 +75,7 @@ public class Account extends Fragment {
 
         //Firebase init
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
 
 
@@ -95,7 +96,7 @@ public class Account extends Fragment {
                             //check if accountInfo exists
 
                             //get data object
-                            Data data = dataSnapshot.getValue(Data.class);
+                            data = dataSnapshot.getValue(Data.class);
 
 
                             //append last data to textviews
@@ -218,6 +219,14 @@ public class Account extends Fragment {
             public void onClick(View v) {
                 try {
                     Intent i = new Intent(getContext(), AccountEdit.class);
+                    i.putExtra("asso", data.assoName);
+                    i.putExtra("school", data.school);
+                    i.putExtra("type", data.type);
+                    i.putExtra("purpose", data.purpose);
+                    i.putExtra("link", data.link);
+                    i.putExtra("email", mUser.getEmail().toString());
+                    i.putExtra("status", data.status);
+
                     startActivity(i);
 
                 } catch (Exception e) {
