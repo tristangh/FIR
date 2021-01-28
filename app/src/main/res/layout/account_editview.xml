@@ -123,12 +123,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Description :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Purpose:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edt_purpose"
@@ -136,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Purpose"
+                android:hint="Write optionnal description"
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -186,9 +185,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -203,7 +200,7 @@
                         android:background="@drawable/app_border"
                         android:drawableStart="@mipmap/user48"
                         android:drawablePadding="5dp"
-                        android:hint="Member Name"
+                        android:hint="Enter a member"
                         android:padding="10dp" />
 
                 </RelativeLayout>
@@ -241,9 +238,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/app_border"
-                        android:drawableStart="@mipmap/user48"
+                        android:drawableStart="@mipmap/category"
                         android:drawablePadding="5dp"
-                        android:hint="Member Name"
+                        android:hint="Enter a category"
                         android:padding="10dp" />
 
                 </RelativeLayout>
@@ -258,32 +255,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/white" />
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                >
-
-                <Spinner
-                    android:id="@+id/spinner_mem"
-                    android:layout_width="249dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_toStartOf="@+id/addmember_button"
-                    android:backgroundTint="@color/colorAccent"
-                    android:paddingEnd="5dp"></Spinner>
-
-                <Button
-                    android:id="@+id/addmember_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="5dp"
-                    android:text="Add" />
-
-            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

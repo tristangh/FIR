@@ -41,19 +41,11 @@ public class Login extends AppCompatActivity {
         emailSignInButton = findViewById(R.id.btn_login);
 
 
-        //fieldEmail = findViewById(R.id.edt_email);
-        //fieldPassword = findViewById(R.id.edt_password);
+        fieldEmail = findViewById(R.id.edt_email);
+        fieldPassword = findViewById(R.id.edt_password);
 
         fieldEmail.setText("essai1@gmail.com");
         fieldPassword.setText("123456");
-
-        // Buttons
-        //emailSignInButton.setOnClickListener(this);
-        //emailCreateAccountButton.setOnClickListener((View.OnClickListener) this);
-
-//        mBinding.signOutButton.setOnClickListener(this);
-//        mBinding.verifyEmailButton.setOnClickListener(this);
-//        mBinding.reloadButton.setOnClickListener(this);
 
     }
 
