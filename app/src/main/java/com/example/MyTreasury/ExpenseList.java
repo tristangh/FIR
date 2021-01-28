@@ -83,9 +83,12 @@ public class ExpenseList extends Fragment {
                 }
 
 
+
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     Data data = snapshot.getValue(Data.class);
+                    //total = total + data.amount;
                     payments_list.add(data);
 
                 }

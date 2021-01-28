@@ -5,36 +5,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class AddExpense extends AppCompatActivity {
+
+    private static final int IMAGE_PICK_CODE = 1000;
+    private static final int PERMISSION_CODE = 1000;
+
 
     public EditText input_date;
     public EditText input_cause;
@@ -49,6 +46,7 @@ public class AddExpense extends AppCompatActivity {
     public EditText input_comments;
     public Button load_button;
     public Button save_button;
+    public ImageView mImageView;
 
     RelativeLayout rel_start_date;
     String startDate;
@@ -78,8 +76,11 @@ public class AddExpense extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         spinnerSubCategory = findViewById(R.id.spinnerSubCategory);
         input_comments = findViewById(R.id.input_comments);
-        load_button = findViewById(R.id.load_button);
+        load_button = findViewById(R.id.load_invoice_button);
         save_button = findViewById(R.id.save_button);
+        //mImageView = findViewById(R.id.image_view);
+
+
 
 /*
         rel_start_date = findViewById(R.id.rel_start_date);
@@ -105,6 +106,61 @@ public class AddExpense extends AppCompatActivity {
           });
  */
 
+
+
+        load_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED){
+                        //permission not enabled
+                        String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        // request permission
+                        requestPermissions(permission, PERMISSION_CODE);
+                    }
+                    else {
+                        //permission granted
+                        pickImageFromGallery();
+                    }
+                }
+                else{
+                    pickImageFromGallery();
+                }
+            }
+
+            private void pickImageFromGallery() {
+                //intent to pick image
+                Intent intent = new Intent (Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, IMAGE_PICK_CODE);
+            }
+
+            /*
+            @Override
+            public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
+                switch (requestCode){
+                    case PERMISSION_CODE:{
+                        if (grantResults.length >0 && grantResults[0] ==
+                                PackageManager.PERMISSION_GRANTED){
+                            pickImageFromGallery();
+                        }
+                        else{
+                            Toast.makeText(AddExpense.this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            protected void onActivityResult (int requestCode, int resultCode, Intent data){
+                if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+                    mImageView.setImageURI(data.getData());
+                }
+            }
+            */
+        });
 
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
