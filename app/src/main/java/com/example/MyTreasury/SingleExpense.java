@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -96,8 +95,6 @@ public class SingleExpense extends AppCompatActivity {
                 //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
                 //MyAdapter.MyViewHolder.
                 //DataList.remove(position);
-
-                //
 
                 //
             }
