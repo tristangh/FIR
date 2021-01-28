@@ -8,14 +8,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="3dp"
         android:background="@drawable/flexbox"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="#000000"
+            android:textColor="#5C5A5A"
             android:textColorHighlight="#FFFFFF"
             android:textColorLink="#756E6E" />
 
@@ -43,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="X"
-            android:textColor="#E44949" />
+            android:textColor="#8C1A1A" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
