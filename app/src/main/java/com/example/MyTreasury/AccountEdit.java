@@ -11,12 +11,20 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class AccountEdit extends Activity {
     Spinner association_spinner,asso_mem;
     String item;
     Button addMemberButton;
+    RecyclerView memberRecylcer;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +34,16 @@ public class AccountEdit extends Activity {
         association_spinner = findViewById(R.id.spinner_association);
         asso_mem = findViewById(R.id.spinner_mem);
         addMemberButton = findViewById(R.id.addmember_button);
+        memberRecylcer = findViewById(R.id.memberRecylcer);
 
 
         setSpinnerItems();
         setSpinnerMem();
+
+        layoutManager = new LinearLayoutManager(this);
+
+        memberRecylcer.setLayoutManager(layoutManager);
+
 
 
         addMemberButton.setOnClickListener(new View.OnClickListener() {
