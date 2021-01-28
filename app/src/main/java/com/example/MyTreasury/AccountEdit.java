@@ -77,7 +77,6 @@ public class AccountEdit extends Activity {
 
 
         //button init
-        addMemberButton = findViewById(R.id.addmember_button);
         updateButton = findViewById(R.id.btn_update);
         btn_addMember = findViewById(R.id.btn_addMember);
         btn_addCategory = findViewById(R.id.btn_addCategory);
@@ -105,9 +104,6 @@ public class AccountEdit extends Activity {
         edt_add_cat = findViewById(R.id.edt_add_cat);
 
         getAndSetIncomingIntent();
-
-        setSpinnerType();
-        //setSpinnerMem();
 
 
         btn_addMember.setOnClickListener(new View.OnClickListener() {
@@ -250,39 +246,6 @@ public class AccountEdit extends Activity {
 
     }
 
-    //Spinner
-    private void setSpinnerType(){
-
-        final ArrayList<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Sportive");
-        spinnerArray.add("Charity");
-        spinnerArray.add("Others");
-
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_spinner_dropdown_item,
-                spinnerArray);
-        association_spinner.setAdapter(spinnerArrayAdapter);
-
-
-        association_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               // ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
-
-                selectedSpinnerType = spinnerArray.get(position);
-                Log.d(TAG, "Selected Item:" + selectedSpinnerType);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-    }
 
 
 
