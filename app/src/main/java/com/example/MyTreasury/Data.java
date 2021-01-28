@@ -2,8 +2,9 @@ package com.example.MyTreasury;
 
 public class Data {
 
-    //for Transaction
     public String id;
+
+    //for Transaction
     public String date;
     public String cause;
     public String amount;
@@ -17,11 +18,15 @@ public class Data {
     public String img_id_str;
     public String balance;
 
+    //for Categories and members
+    public String noun;
+
+
     //for Account Info
     public String assoName, school, purpose, link, status;
 
 
-    //Data object for addExpenses
+    //Data object for expenses
 
     public Data(String id, String date, String cause, String amount, String currency, String type,
                 String state, String payer, String cat, String subcat, String comments, String img_id_str) {
@@ -71,7 +76,16 @@ public class Data {
 
     }
 
+    //data object for categories and members
 
+    public Data(String id, String noun) {
+        this.id=id;
+        this.noun=noun;
+    }
+
+    public String getNoun() {
+        return noun;
+    }
 
     public String getId() {
         return id;

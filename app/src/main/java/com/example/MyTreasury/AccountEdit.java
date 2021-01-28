@@ -12,8 +12,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,16 +29,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
 public class AccountEdit extends Activity {
     Spinner association_spinner,asso_mem;
+    Button addMemberButton, updateButton, btn_addMember;
+    EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status, edt_add_mem;
+    RecyclerView memberRecylerView;
+    FlexboxLayoutManager layoutManager_member;
+    List<Data> members_list;
+    public static RecyclerView.Adapter MemberAdapter;
     String selectedSpinnerType;
-    Button addMemberButton, updateButton;
-    EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status;
-    RecyclerView memberRecylcer;
-    RecyclerView.LayoutManager layoutManager;
+
+    RecyclerView categoryRecylerView;
+    List<Data> categories_list;
+    Button btn_addCategory;
+    EditText edt_add_cat;
+    FlexboxLayoutManager layoutManager_category;
+    public static RecyclerView.Adapter CategoryAdapter;
 
     //firebase
     public DatabaseReference mDatabase;
@@ -48,13 +63,14 @@ public class AccountEdit extends Activity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("AccountInfo");
+        mDatabase = FirebaseDatabase.getInstance().getReference(user_id);
 
 
         //spinner init
         association_spinner = findViewById(R.id.spinner_association);
         asso_mem = findViewById(R.id.spinner_mem);
-        memberRecylcer = findViewById(R.id.memberRecylcer);
+        memberRecylerView = findViewById(R.id.memberRecylerView);
+        categoryRecylerView = findViewById(R.id.categoryRecyclerView);
 
 
 
@@ -62,10 +78,21 @@ public class AccountEdit extends Activity {
         //button init
         addMemberButton = findViewById(R.id.addmember_button);
         updateButton = findViewById(R.id.btn_update);
+        btn_addMember = findViewById(R.id.btn_addMember);
+        btn_addCategory = findViewById(R.id.btn_addCategory);
 
-        //recycler init
-        layoutManager = new LinearLayoutManager(this);
-        memberRecylcer.setLayoutManager(layoutManager);
+        //Members recycler init
+        //layoutManager = new GridLayoutManager(this, 6);
+        layoutManager_member = new FlexboxLayoutManager(this, FlexDirection.ROW);
+        //layoutManager_member.setFlexDirection(FlexDirection.ROW);
+        memberRecylerView.setLayoutManager(layoutManager_member);
+        members_list = new ArrayList<Data>();
+
+        //Categories recycler init
+        layoutManager_category = new FlexboxLayoutManager(this, FlexDirection.ROW);
+        //layoutManager_category.setFlexDirection();
+        categoryRecylerView.setLayoutManager(layoutManager_category);
+        categories_list = new ArrayList<Data>();
 
         //edittext init
         edt_asso_name = findViewById(R.id.edt_asso_name);
@@ -73,6 +100,8 @@ public class AccountEdit extends Activity {
         edt_purpose = findViewById(R.id.edt_purpose);
         edt_link = findViewById(R.id.edt_link);
         edt_status = findViewById(R.id.edt_status);
+        edt_add_mem = findViewById(R.id.edt_add_mem);
+        edt_add_cat = findViewById(R.id.edt_add_cat);
 
         getAndSetIncomingIntent();
 
@@ -80,25 +109,99 @@ public class AccountEdit extends Activity {
         //setSpinnerMem();
 
 
-        addMemberButton.setOnClickListener(new View.OnClickListener() {
+        btn_addMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                Intent i = new Intent(AccountEdit.this, AddMember.class);
-                startActivity(i);
+                String id_member = mDatabase.child("Members").push().getKey();
+                String member_name = edt_add_mem.getText().toString();
+                Data member_data = new Data(id_member, member_name);
+                mDatabase.child("Members").child(id_member).setValue(member_data);
+                //mDatabase.child("Members").push().setValue(member_name);
+                edt_add_mem.setText("");
 
             }
         });
+
+        btn_addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String id_category = mDatabase.child("Categories").push().getKey();
+                String cat_name = edt_add_cat.getText().toString();
+                Data cat_data = new Data(id_category, cat_name);
+                mDatabase.child("Categories").child(id_category).setValue(cat_data);
+                //mDatabase.child("Members").push().setValue(member_name);
+                edt_add_mem.setText("");
+
+
+            }
+        });
+
+        mDatabase.child("Members").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (members_list != null) {
+                    members_list.clear();
+                }
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    members_list.add(data);
+                    //String member = snapshot.getValue().toString();
+                    //String id = mDatabase.child("Members").push().getKey();
+                    //members_list.add(member);
+
+                }
+                MemberAdapter = new EditAdapter(members_list, mDatabase.child("Members"));
+                memberRecylerView.setAdapter(MemberAdapter);
+                MemberAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
+
+        mDatabase.child("Categories").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (categories_list != null) {
+                    categories_list.clear();
+                }
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    categories_list.add(data);
+                    //String category = snapshot.getValue().toString();
+                    //categories_list.add(category);
+
+
+                }
+                CategoryAdapter = new EditAdapter(categories_list, mDatabase.child("Categories"));
+                categoryRecylerView.setAdapter(CategoryAdapter);
+                CategoryAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
+
+
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-
-
-                String id = mDatabase.push().getKey();
+                String id_account = mDatabase.child("AccountInfo").push().getKey();
                 String date = "date actuelle";
                 String assoName = edt_asso_name.getText().toString();
                 String school = edt_school.getText().toString();
@@ -107,10 +210,10 @@ public class AccountEdit extends Activity {
                 String link = edt_link.getText().toString();
                 String status = edt_status.getText().toString();
 
-
-                Data data = new Data(id, date, assoName,school,type,purpose,link,status);
+                Data account_data = new Data(id_account, date, assoName,school,type, purpose,link,status);
                 //.trim()
-                mDatabase.setValue(data);
+                mDatabase.child("AccountInfo").setValue(account_data);
+
                 Intent IntentBack = new Intent(AccountEdit.this, MainActivity.class);
                 IntentBack.putExtra("frgToLoad", 3);
                 startActivity(IntentBack);

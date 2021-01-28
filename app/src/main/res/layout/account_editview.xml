@@ -177,9 +177,87 @@
                 />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/memberRecylcer"
+                android:id="@+id/memberRecylerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edt_add_mem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/app_border"
+                        android:drawableStart="@mipmap/user48"
+                        android:drawablePadding="5dp"
+                        android:hint="Member Name"
+                        android:padding="10dp" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_addMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/button_round"
+                    android:text="Add member"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoryRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <EditText
+                        android:id="@+id/edt_add_cat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/app_border"
+                        android:drawableStart="@mipmap/user48"
+                        android:drawablePadding="5dp"
+                        android:hint="Member Name"
+                        android:padding="10dp" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_addCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/button_round"
+                    android:text="Add category"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -246,7 +324,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"></RelativeLayout>
+                android:layout_height="20dp">
+
+            </RelativeLayout>
 
 
         </LinearLayout>

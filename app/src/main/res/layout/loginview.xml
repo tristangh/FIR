@@ -83,11 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/app_border"
-                    android:hint="Email/Mobile No."
-                    android:padding="10dp"
-                    android:drawablePadding="5dp"
                     android:drawableStart="@mipmap/user48"
-                    />
+                    android:drawablePadding="5dp"
+                    android:hint="Email"
+                    android:padding="10dp" />
 
             </RelativeLayout>
 
