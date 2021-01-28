@@ -41,8 +41,8 @@ public class Login extends AppCompatActivity {
         emailSignInButton = findViewById(R.id.btn_login);
 
 
-        fieldEmail = findViewById(R.id.edt_email);
-        fieldPassword = findViewById(R.id.edt_password);
+        //fieldEmail = findViewById(R.id.edt_email);
+        //fieldPassword = findViewById(R.id.edt_password);
 
         fieldEmail.setText("essai1@gmail.com");
         fieldPassword.setText("123456");
@@ -118,7 +118,7 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             //Open Dashboard view
-                            Intent i = new Intent(Login.this, AccountEdit.class);
+                            Intent i = new Intent(Login.this, MainActivity.class);
                             i.putExtra("frgToLoad", 1);
                             startActivity(i);
 

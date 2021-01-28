@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    card_view:cardElevation="12dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="50dp"
+            card_view:columnCount="2">
+
+            <TextView
+                android:id="@+id/date_range"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:text="@string/pick_a_range_of_dates"
+                card_view:layout_columnSpan="2"
+                card_view:layout_gravity="fill_horizontal" />
+
+            <TextView
+                android:id="@+id/title_date_from"
+                style="@style/HeaderTextView"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="@string/date_from"
+                card_view:layout_columnWeight="1"
+                card_view:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/date_from"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/date_format"
+                android:textColor="@color/primary_dark"
+                card_view:layout_columnWeight="1"
+                card_view:layout_gravity="fill_horizontal" />
+
+            <TextView
+                android:id="@+id/title_date_to"
+                style="@style/HeaderTextView"
+                android:gravity="center"
+                android:text="@string/date_to"
+                card_view:layout_columnWeight="1"
+                card_view:layout_gravity="fill_horizontal" />
+
+            <Button
+                android:id="@+id/date_to"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/date_format"
+                android:textColor="@color/primary_dark"
+                card_view:layout_columnWeight="1"
+                card_view:layout_gravity="fill_horizontal" />
+
+            <TextView
+                android:id="@+id/total_exp"
+                style="@style/HeaderTextView"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/total_exp_date"
+                android:textSize="24sp"
+                card_view:layout_columnSpan="2"
+                card_view:layout_gravity="fill_horizontal" />
+
+        </androidx.gridlayout.widget.GridLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="250dp">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/Chart_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

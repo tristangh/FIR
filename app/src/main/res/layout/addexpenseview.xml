@@ -273,10 +273,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/load_button"
+            android:id="@+id/load_invoice_button"
             android:layout_width="119dp"
             android:layout_height="wrap_content"
-            android:text="Load invoice"
+            android:text="Capture invoice"
             android:textAlignment="center" />
 
         <TextView
@@ -285,6 +285,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Name of the loaded file"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:text="Capture invoice"
             android:textAlignment="center" />
 
     </LinearLayout>
