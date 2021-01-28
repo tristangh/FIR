@@ -17,6 +17,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,7 +33,10 @@ public class Account extends Fragment {
     Button btn;
 
     private FirebaseAuth mAuth;
-    private TextView emailTv;
+    private TextView asso, school, type, purpose, link, member, status;
+
+    private DatabaseReference myRef;
+
 
     Spinner association_spinner,asso_mem;
     String item;
@@ -45,10 +54,62 @@ public class Account extends Fragment {
 
         /* ------------------------- insert code */
 
+        //Text view init
+        asso = v.findViewById(R.id.asso_name);
+        school = v.findViewById(R.id.school);
+        purpose = v.findViewById(R.id.purpose);
+        link = v.findViewById(R.id.link);
+        status = v.findViewById(R.id.status);
 
 
 
+
+        //Firebase init
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String user_id = mUser.getUid();
+        myRef = FirebaseDatabase.getInstance().getReference(user_id).child("AccountInfo");
+
+        //System.out.println("Data retrived " + myRef.child("link").get());
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //get data object
+                Data data = dataSnapshot.getValue(Data.class);
+
+
+                //append last data to textviews
+                asso.setText(data.assoName.toString());
+                school.setText(data.school.toString());
+                purpose.setText(data.purpose.toString());
+                link.setText(data.link.toString());
+                status.setText(data.status.toString());
+
+
+
+                //System.out.println("Data retrived " + data.link);
+
+
+                //if adapter required :
+
+                /*
+
+                mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
+                */
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
+
 
 
 
