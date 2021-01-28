@@ -56,16 +56,18 @@ public class Data {
 
     //data object for AccountInfo
 
-    public Data(String id, String date, String assoName, String school, String purpose, String link,
+    public Data(String id, String date, String assoName, String school, String type, String purpose, String link,
                                 String status) {
 
         this.id=id;
         this.date=date;
         this.assoName=assoName;
         this.school=school;
+        this.type=type;
         this.purpose=purpose;
         this.link=link;
         this.status=status;
+
 
     }
 
