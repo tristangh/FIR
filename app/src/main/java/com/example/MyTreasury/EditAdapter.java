@@ -21,22 +21,24 @@ import java.util.List;
 public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> {
 
     List<String> DataList;
-    public Class myActivity;
+    //public Class myActivity;
     public DatabaseReference database_ref;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public Button delButton;
         public TextView txt_name;
+        public TextView txt_del;
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
-            delButton = itemView.findViewById(R.id.delButton);
-            txt_name = itemView.findViewById(R.id.txt_name);;
+            //delButton = itemView.findViewById(R.id.delButton);
+            txt_name = itemView.findViewById(R.id.txt_name);
+            txt_del = itemView.findViewById(R.id.txt_del);;
         }
     }
 
-    public EditAdapter(List<String> DataList, Class activity, DatabaseReference database_ref) {
-        this.myActivity = activity;
+    public EditAdapter(List<String> DataList, DatabaseReference database_ref) {
+        //this.myActivity = activity;
         this.DataList = DataList;
         this.database_ref = database_ref;
     }
@@ -56,7 +58,7 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
         final String noun = DataList.get(position);
 
         viewHolder.txt_name.setText(noun);
-        viewHolder.delButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.txt_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Query queryRef = database_ref.equalTo(noun);
@@ -91,6 +93,8 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
                 //ExpenseList.mAdapter.notifyItemRemoved(Integer.parseInt(position));
                 //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
                 DataList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, getItemCount());
 
 
             }
