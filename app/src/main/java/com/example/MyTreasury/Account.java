@@ -18,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +55,9 @@ public class Account extends Fragment {
     public static List<Data> members_list;
     public static List<Data> categories_list;
 
+    FlexboxLayoutManager layoutManager_category;
+    FlexboxLayoutManager layoutManager_members;
+
 
     Spinner asso_mem;
     String selectedSpinnerMem;
@@ -83,6 +89,15 @@ public class Account extends Fragment {
         final FirebaseUser mUser = mAuth.getCurrentUser();
         String user_id = mUser.getUid();
 
+        //Recycler Views init
+        layoutManager_members = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
+        MembersRecycler.setLayoutManager(layoutManager_members);
+        members_list = new ArrayList<>();
+        layoutManager_category = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
+        CategoriesRecycler.setLayoutManager(layoutManager_category);
+        categories_list = new ArrayList<>();
+
+
 
         myRef = FirebaseDatabase.getInstance().getReference(user_id);
 
@@ -100,6 +115,7 @@ public class Account extends Fragment {
                     members_list.add(data);
 
                 }
+
 
                 MembersAdapter = new EditAdapter(members_list, myRef.child("Members"), R.layout.flexbox);
                 MembersRecycler.setAdapter(MembersAdapter);
@@ -126,7 +142,10 @@ public class Account extends Fragment {
                     categories_list.add(data);
 
                 }
-
+                //Categories recycler init
+                layoutManager_category = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
+                //layoutManager_category.setFlexDirection();
+                CategoriesRecycler.setLayoutManager(layoutManager_category);
                 CategoriesAdapter = new EditAdapter(categories_list, myRef.child("Categories"), R.layout.flexbox);
                 CategoriesRecycler.setAdapter(CategoriesAdapter);
                 CategoriesAdapter.notifyDataSetChanged();
@@ -195,6 +214,8 @@ public class Account extends Fragment {
 
             }
         });
+
+
 
         //email init
         email = v.findViewById(R.id.tv_email);

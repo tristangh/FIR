@@ -27,14 +27,12 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
 
         public MyViewHolder(View ItemView) {
             super(ItemView);
-            //delButton = itemView.findViewById(R.id.delButton);
             txt_name = itemView.findViewById(R.id.txt_name);
-            txt_del = itemView.findViewById(R.id.txt_del);;
+
         }
     }
 
     public EditAdapter(List<Data> DataList, DatabaseReference database_ref,  int layout) {
-        //this.myActivity = activity;
         this.DataList = DataList;
         this.database_ref = database_ref;
         this.layout = layout;
@@ -50,7 +48,7 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        final EditAdapter.MyViewHolder viewHolder = (EditAdapter.MyViewHolder)holder;
+        final EditAdapter.MyViewHolder viewHolder = (EditAdapter.MyViewHolder) holder;
 
         Data data = DataList.get(position);
 
@@ -58,9 +56,11 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
         final String noun = data.getNoun();
 
         viewHolder.txt_name.setText(noun);
-        viewHolder.txt_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (layout == R.layout.flexbox_edit) {
+            viewHolder.txt_del = viewHolder.itemView.findViewById(R.id.txt_del);
+            viewHolder.txt_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
                 /*
                 Query queryRef = database_ref.equalTo(noun);
@@ -101,20 +101,21 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
                 });
 
                  */
-                //ExpenseList.mAdapter.notifyDataSetChanged();
-                //ExpenseList.mAdapter.notifyItemRemoved(Integer.parseInt(position));
-                //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
-                //database_ref.child(id).removeValue();
-                database_ref.child(id).removeValue();
-                //DataList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount());
+                    //ExpenseList.mAdapter.notifyDataSetChanged();
+                    //ExpenseList.mAdapter.notifyItemRemoved(Integer.parseInt(position));
+                    //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
+                    //database_ref.child(id).removeValue();
+                    database_ref.child(id).removeValue();
+                    //DataList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, getItemCount());
 
 
-            }
+                }
 
-        });
+            });
 
+        }
     }
 
     @Override
