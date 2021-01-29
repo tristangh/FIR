@@ -125,6 +125,7 @@ public class Invoice extends AppCompatActivity {
         getIncomingIntent();
         // get the Firebase  storage reference
         storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ img_id);
+        FirebaseImageLoader img = new FirebaseImageLoader();
 
         //FileDownloadTask image = storageReference;
         //fullscreen_content.setBackground(image);
