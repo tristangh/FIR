@@ -46,8 +46,7 @@ public class Login extends AppCompatActivity {
         fieldEmail = findViewById(R.id.edt_email);
         fieldPassword = findViewById(R.id.edt_password);
 
-        fieldEmail.setText("essai1@gmail.com");
-        fieldPassword.setText("123456");
+
 
         img_logo = findViewById(R.id.img_logo);
         img_logo.setImageResource(R.drawable.logo);
