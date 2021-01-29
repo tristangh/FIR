@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,8 @@ public class ExpenseList extends Fragment {
 
     ArrayList<String[]> transactions_list;
     List<Data> payments_list;
+    Double amount = 0.0;
+
     RecyclerView mRecyclerView;
     public static RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -49,7 +52,7 @@ public class ExpenseList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //change title
-        if (mListener !=null) {
+        if (mListener != null) {
             mListener.OnFragmentInteractionChangeTitle("Expenses List");
         }
         // Inflate the layout for this fragment
@@ -83,15 +86,20 @@ public class ExpenseList extends Fragment {
                 }
 
 
-
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Data data = snapshot.getValue(Data.class);
                     //total = total + data.amount;
                     payments_list.add(data);
 
+                    amount = amount + data.amount;
+
+
                 }
+
+                Log.d("Expense Lists", amount.toString());
+                Toast.makeText(getContext(), amount.toString(),Toast.LENGTH_LONG);
+
                 mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
