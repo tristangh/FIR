@@ -87,10 +87,7 @@ public class Register extends Activity {
 
 
 
-                //Open Dashboard view
-                Intent i = new Intent(Register.this, MainActivity.class);
-                i.putExtra("frgToLoad", 1);
-                startActivity(i);
+
             }
 
 
@@ -139,6 +136,11 @@ public class Register extends Activity {
                             Data data = new Data(id, date, assoName,school,type,purpose,link);
                             //.trim()
                             mDatabase.setValue(data);
+
+                            //Open Dashboard view
+                            Intent i = new Intent(Register.this, MainActivity.class);
+                            i.putExtra("frgToLoad", 1);
+                            startActivity(i);
 
 
                         } else {
