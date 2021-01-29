@@ -58,14 +58,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddExpense.class);
-                startActivity(intent);
-            }
-        });
+
     }
     @Override
     public void onBackPressed() {
