@@ -178,14 +178,15 @@ public class AddExpense extends AppCompatActivity {
                 String currency = selectedSpinnerCurr;//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
 
-                /*
+
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radioCredit)
                 {
-                    // do something
+                    type = "credit";
                 }
                 else if (radioGroup.getCheckedRadioButtonId() == R.id.radioDebit){
+                    type = "debit";
 
-                }*/
+                }
 
                 String state = selectedSpinnerState;
                 String payer = selectedSpinnerPayer;
