@@ -169,7 +169,16 @@ public class Register extends Activity {
         final ArrayList<String> spinnerArray = new ArrayList<String>();
         spinnerArray.add("Sportive");
         spinnerArray.add("Charity");
-        spinnerArray.add("Others");
+        spinnerArray.add("Professional");
+        spinnerArray.add("Cultural");
+        spinnerArray.add("Artistic");
+        spinnerArray.add("International");
+        spinnerArray.add("Humanitarian");
+        spinnerArray.add("Playful");
+        spinnerArray.add("Robotics");
+        spinnerArray.add("Sciences");
+        spinnerArray.add("Other");
+;
 
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_dropdown_item,
