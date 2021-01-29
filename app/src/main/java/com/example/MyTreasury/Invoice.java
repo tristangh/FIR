@@ -6,9 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +33,11 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -135,6 +146,7 @@ public class Invoice extends AppCompatActivity {
         // get the Firebase  storage reference
         //FirebaseFirestore db = FirebaseFirestore.getInstance().ref("images/"+ img_id);
         storageReference = FirebaseStorage.getInstance().getReference();
+
 
         System.out.println("images/"+ img_id);
         //gs://my-treasury.appspot.com/images
@@ -280,4 +292,65 @@ public class Invoice extends AppCompatActivity {
             img_id = getIntent().getStringExtra("Image id");
         }
     }
+/*
+    private void setImage(Drawable drawable)
+    {
+        mImageView.setBackgroundDrawable(drawable);
+    }
+
+    public class DownloadImage extends AsyncTask<String, Integer, Drawable> {
+
+        @Override
+        protected Drawable doInBackground(String... arg0) {
+            // This is done in a background thread
+            return downloadImage(arg0[0]);
+        }
+
+
+        protected void onPostExecute(Drawable image)
+        {
+            setImage(image);
+        }
+
+
+
+        private Drawable downloadImage(String _url)
+        {
+            //Prepare to download image
+            URL url;
+            BufferedOutputStream out;
+            InputStream in;
+            BufferedInputStream buf;
+
+            //BufferedInputStream buf;
+            try {
+                url = new URL(_url);
+                in = url.openStream();
+
+                // Read the inputstream
+                buf = new BufferedInputStream(in);
+
+                // Convert the BufferedInputStream to a Bitmap
+                Bitmap bMap = BitmapFactory.decodeStream(buf);
+                if (in != null) {
+                    in.close();
+                }
+                if (buf != null) {
+                    buf.close();
+                }
+
+                return new BitmapDrawable(bMap);
+
+            } catch (Exception e) {
+                Log.e("Error reading file", e.toString());
+            }
+
+            return null;
+        }
+
+    }
+
+ */
+
+
 }

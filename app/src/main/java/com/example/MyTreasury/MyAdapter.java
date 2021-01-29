@@ -79,6 +79,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final String payer = data.getPayer();
         final String cat = data.getCat();
         final String subcat = data.getSubcat();
+        final String img_id = data.getImg_id_str();
+        final String comments = data.getComments();
+
 
         viewHolder.txtDate.setText(date);
         viewHolder.txtAmount.setText(amount.toString());
@@ -97,8 +100,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                                   mIntent.putExtra("Payer", payer);
                                                   mIntent.putExtra("Category", cat);
                                                   mIntent.putExtra("Sub-category", subcat);
-                                                  //mIntent.putExtra("Invoice file", img);
-                                                  //mIntent.putExtra("Comments", comments);
+                                                  mIntent.putExtra("Invoice file", img_id);
+                                                  mIntent.putExtra("Comments", comments);
                                                   mContext.startActivity(mIntent);
                                               }
                                           }
