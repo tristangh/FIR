@@ -2,33 +2,53 @@ package com.example.MyTreasury;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+import static com.example.MyTreasury.ExpenseList.mAdapter;
 
 
 public class Dashboard extends Fragment implements View.OnClickListener{
 
     private Button DateFrom;
     private Button DateTo;
-    private TextView TotalExp;
+    private TextView totalBalance;
+    private Double totalAmount;
     private SelectDate SelectDate;
     private PieChart Categories;
     private TextView CategoriesNull;
+    List<Data> payments_list;
+
+
+    //DB init
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    FirebaseAuth mAuth;
 
 
 
@@ -38,9 +58,73 @@ public class Dashboard extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.dashboard_view, container, false);
         DateFrom = (Button)rootView.findViewById(R.id.date_from);
         DateTo = (Button)rootView.findViewById(R.id.date_to);
-        TotalExp = (TextView)rootView.findViewById(R.id.total_exp);
+        totalBalance = (TextView)rootView.findViewById(R.id.total_balance);
         Categories = (PieChart) rootView.findViewById(R.id.Chart_categories);
         //CategoriesNull = (TextView)rootView.findViewById(R.id.EmptyPieChart);
+
+
+        //TOTAL AMOUNT
+
+        totalAmount=0.0;
+
+        payments_list = new ArrayList<>();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mUser = mAuth.getCurrentUser();
+        String user_id = mUser.getUid();
+        myRef = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (payments_list != null) {
+                    payments_list.clear();
+                }
+
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Data data = snapshot.getValue(Data.class);
+                    payments_list.add(data);
+
+                    assert data != null;
+                    if (data.type.equals("credit")){
+                        totalAmount = totalAmount + Double.parseDouble(data.amount);
+                    }
+
+                    else if (data.type.equals("debit")){
+                        totalAmount = totalAmount - Double.parseDouble(data.amount);
+                    }
+
+
+
+
+                }
+
+
+
+
+                //set total amount to textView
+                String totalAmountString = totalAmount.toString();
+                Log.d("Total amount String :", totalAmountString.toString());
+                totalBalance.setText(totalAmountString);
+                /*
+                mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                */
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Expense List add value listener on error", "Failed to read value.", error.toException());
+            }
+        });
+
+
+
 
 
         return rootView;
@@ -99,7 +183,7 @@ public class Dashboard extends Fragment implements View.OnClickListener{
     }
 
     public TextView getTextViewTotal() {
-        return TotalExp;
+        return totalBalance;
     }
 
     public void setSelectDateFragment(SelectDate SelectDate) {

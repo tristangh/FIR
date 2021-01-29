@@ -69,7 +69,7 @@
                 card_view:layout_gravity="fill_horizontal" />
 
             <TextView
-                android:id="@+id/total_exp"
+                android:id="@+id/total_balance"
                 style="@style/HeaderTextView"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
