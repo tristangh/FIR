@@ -57,6 +57,10 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //implementation 'com.github.mikephil.charting.charts.PieChart'
 
+    // FirebaseUI Storage only
+    implementation 'com.firebaseui:firebase-ui-storage:6.4.0'
+
+
 
     //Firebase
     implementation 'com.google.firebase:firebase-database:16.0.4'

@@ -5,12 +5,20 @@ import android.annotation.SuppressLint;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
+
+import com.bumptech.glide.Glide;
 import com.example.MyTreasury.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -23,6 +31,10 @@ public class Invoice extends AppCompatActivity {
      */
 
     String img_id;
+    // instance for firebase storage and StorageReference
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    ImageView fullscreen_content;
 
     private static final boolean AUTO_HIDE = true;
 
@@ -108,9 +120,21 @@ public class Invoice extends AppCompatActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
+        fullscreen_content = findViewById(R.id.fullscreen_content);
 
         getIncomingIntent();
-        //mContentView.setImageResource(R.drawable.facture_1);
+        // get the Firebase  storage reference
+        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ img_id);
+
+        //FileDownloadTask image = storageReference;
+        //fullscreen_content.setBackground(image);
+
+        Glide.with(this)
+                //.using(new FirebaseImageLoader())
+                .load(storageReference)
+                .into(fullscreen_content);
+
+
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {

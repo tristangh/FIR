@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -44,6 +45,7 @@ public class ExpenseList extends Fragment {
     private DatabaseReference myRef;
     FirebaseAuth mAuth;
     Context mContext;
+    FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +61,15 @@ public class ExpenseList extends Fragment {
 
         txt = v.findViewById(R.id.txt);
         txt.setText("Transactions record");
+
+        fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddExpense.class);
+                startActivity(intent);
+            }
+        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mRecyclerView);
 
