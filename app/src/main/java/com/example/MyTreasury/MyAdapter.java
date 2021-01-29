@@ -74,7 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final String id = data.getId();
         final String date = data.getDate();
         final String cause = data.getCause();
-        final Double amount = data.getAmount();
+        final String amount = data.getAmount();
         final String state = data.getState();
         final String payer = data.getPayer();
         final String cat = data.getCat();

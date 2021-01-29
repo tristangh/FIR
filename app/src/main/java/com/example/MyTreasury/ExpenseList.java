@@ -103,13 +103,13 @@ public class ExpenseList extends Fragment {
                     //total = total + data.amount;
                     payments_list.add(data);
 
-                    amount = amount + data.amount;
+                    //amount = amount + data.amount;
 
 
                 }
 
-                Log.d("Expense Lists", amount.toString());
-                Toast.makeText(getContext(), amount.toString(),Toast.LENGTH_LONG);
+                //Log.d("Expense Lists", amount.toString());
+                //Toast.makeText(getContext(), amount.toString(),Toast.LENGTH_LONG);
 
                 mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);

@@ -2,6 +2,7 @@ package com.example.MyTreasury;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,14 +12,21 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
 import com.example.MyTreasury.R;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -111,6 +119,7 @@ public class Invoice extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,16 +133,81 @@ public class Invoice extends AppCompatActivity {
 
         getIncomingIntent();
         // get the Firebase  storage reference
-        storageReference = FirebaseStorage.getInstance().getReference().child("images/"+ img_id);
-        FirebaseImageLoader img = new FirebaseImageLoader();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance().ref("images/"+ img_id);
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        System.out.println("images/"+ img_id);
+        //gs://my-treasury.appspot.com/images
+
+        final Task<Uri> img_link = storageReference.child("images/"+ img_id).getDownloadUrl();//.getResult()
+        ((Task) img_link).addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                System.out.println(img_link.toString());
+                System.out.println(img_link.getResult());
+                System.out.println(img_link.getResult().toString());
+                Toast.makeText(Invoice.this, img_link.toString(),Toast.LENGTH_LONG);
+
+                Glide.with(Invoice.this)
+                        //.using(new FirebaseImageLoader())
+                        .load(img_link.getResult().toString())
+                        .into(fullscreen_content);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Couldn't load the image from the cloud");
+                Toast.makeText(Invoice.this,"Couldn't load the image from the cloud",Toast.LENGTH_LONG);
+                fullscreen_content.setImageResource(R.drawable.facture_1);
+                // Handle any errors
+            }
+        });
+
+
+        /*
+         storageReference.getDownloadUrl().then((url) => {
+                                    // `url` is the download URL for 'images/stars.jpg'
+
+                                    // This can be downloaded directly:
+                                    var xhr = new XMLHttpRequest();
+                            xhr.responseType = 'blob';
+                            xhr.onload = (event) => {
+                                var blob = xhr.response;
+                            };
+                            xhr.open('GET', url);
+                            xhr.send();
+
+                            // Or inserted into an <img> element
+                            var img = document.getElementById('myimg');
+                            img.setAttribute('src', url);
+                      })
+                      .catch((error) => {
+                                    // Handle any errors
+                            });
+
+        Picasso.with(this)
+                .load(uploadCurrent.getImageUrl())
+                //.error(R.drawable.error_image)
+                .into(fullscreen_content, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // will load image
+                    }
+
+                    @Override
+                    public void onError() {
+                        // will not load image from url
+                    }
+                });
+
+ */
 
         //FileDownloadTask image = storageReference;
         //fullscreen_content.setBackground(image);
 
-        Glide.with(this)
-                //.using(new FirebaseImageLoader())
-                .load(storageReference)
-                .into(fullscreen_content);
+
+
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {

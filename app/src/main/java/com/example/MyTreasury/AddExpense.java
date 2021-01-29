@@ -167,7 +167,7 @@ public class AddExpense extends AppCompatActivity {
                 String id = mDatabase.push().getKey();
                 String date = input_date.getText().toString();
                 String cause = input_cause.getText().toString();
-                Double amount = Double.parseDouble(input_amount.getText().toString());
+                String amount = input_amount.getText().toString();
                 String currency = "test";//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
 

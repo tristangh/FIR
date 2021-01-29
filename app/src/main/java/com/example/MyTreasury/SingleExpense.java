@@ -24,8 +24,8 @@ public class SingleExpense extends AppCompatActivity {
     String cat;
     String subcat;
     String comments;
-    String img_id_str = "facture_1.jpg";
-    String position;
+    String img_id_str;
+    int position;
 
     TextView txt_date;
     TextView txt_cause;
@@ -70,7 +70,7 @@ public class SingleExpense extends AppCompatActivity {
         txt_payer.setText(payer);
         txt_cat.setText(cat);
         txt_subcat.setText(subcat);
-        //txt_com.setText(comments);
+        txt_com.setText(comments);
         //img_invoice.setImageResource(Integer.parseInt(img_id_str));
 
         img_invoice.setOnClickListener(new View.OnClickListener(){
@@ -90,12 +90,10 @@ public class SingleExpense extends AppCompatActivity {
                 IntentBack.putExtra("frgToLoad", 2);
                 startActivity(IntentBack);
                 //ExpenseList.mAdapter.notifyDataSetChanged();
-
                 //ExpenseList.mAdapter.notifyItemRemoved(Integer.parseInt(position));
                 //ExpenseList.mAdapter.notifyItemRangeChanged(Integer.parseInt(position), ExpenseList.mAdapter.getItemCount());
                 //MyAdapter.MyViewHolder.
                 //DataList.remove(position);
-
                 //
             }
         });
@@ -103,9 +101,7 @@ public class SingleExpense extends AppCompatActivity {
     }
 
     private void getIncomingIntent(){
-        if (getIntent().hasExtra("Position")) {
-            position = getIntent().getStringExtra("Position");
-        }
+
         if (getIntent().hasExtra("Id")) {
             id = getIntent().getStringExtra("Id");
         }
@@ -129,15 +125,17 @@ public class SingleExpense extends AppCompatActivity {
         }
         if (getIntent().hasExtra("Sub-category")) {
             subcat = getIntent().getStringExtra("Sub-category");
-        }/*
+        }
         if (getIntent().hasExtra("Invoice file")) {
             img_id_str = getIntent().getStringExtra("Invoice file");
         }
         if (getIntent().hasExtra("Comments")) {
             comments = getIntent().getStringExtra("Comments");
         }
-        */
-
+        /*
+        if (getIntent().hasExtra("Position")) {
+            position = getIntent().getIntExtra("Position");
+        }*/
     }
 }
 
