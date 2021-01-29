@@ -135,8 +135,6 @@ public class Invoice extends AppCompatActivity {
                 .load(storageReference)
                 .into(fullscreen_content);
 
-
-
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -67,7 +67,6 @@ public class Account extends Fragment {
         type = v.findViewById(R.id.asso_type);
         purpose = v.findViewById(R.id.purpose);
         link = v.findViewById(R.id.link);
-        status = v.findViewById(R.id.status);
 
 
 
@@ -177,7 +176,6 @@ public class Account extends Fragment {
         //emailTv.setText(mAuth.getCurrentUser().getEmail());
 
 
-        asso_mem = v.findViewById(R.id.spinner_mem);
         logoutButton = v.findViewById(R.id.btn_logout);
         editButton = v.findViewById(R.id.btn_edit);
 

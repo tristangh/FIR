@@ -69,7 +69,6 @@ public class AccountEdit extends Activity {
 
         //spinner init
         association_spinner = findViewById(R.id.spinner_association);
-        asso_mem = findViewById(R.id.spinner_mem);
         memberRecylerView = findViewById(R.id.memberRecylerView);
         categoryRecylerView = findViewById(R.id.categoryRecyclerView);
 

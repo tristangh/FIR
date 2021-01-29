@@ -49,12 +49,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="20dp"
+                android:text="Association Name :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Association Name:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/asso_name"
@@ -73,12 +72,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="School :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="School:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/school"
@@ -98,12 +96,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Association Type :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Association Type:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/asso_type"
@@ -112,7 +109,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
                 android:enabled="false"
-                android:hint="Association Name"
+                android:hint="Type"
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -122,12 +119,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Description :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Purpose:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/purpose"
@@ -135,24 +131,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Purpose"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:singleLine="true"
                 android:enabled="false"
-                />
+                android:hint="Description"
+                android:inputType="text"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Links :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Link to Facebook Page:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/link"
@@ -160,65 +154,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Link to Facebook Page"
-                android:textColorHint="@color/black"
-                android:padding="10dp"
-                android:textSize="14sp"
                 android:enabled="false"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Member:"
-                />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                >
-
-                <Spinner
-                    android:id="@+id/spinner_mem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:paddingEnd="5dp"
-                    android:backgroundTint="@color/colorAccent"
-                    >
-                </Spinner>
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Status:"
-                />
-
-            <EditText
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/app_border"
-                android:hint="Status"
-                android:textColorHint="@color/black"
+                android:hint="Web site, Facebook Page, Instagram ..."
                 android:padding="10dp"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:singleLine="true"
-                />
+                android:textColorHint="@color/black"
+                android:textSize="14sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Members :"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Categories :"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"

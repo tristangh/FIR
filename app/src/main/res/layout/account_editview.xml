@@ -49,12 +49,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="20dp"
+                android:text="Association Name :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Association Name:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edt_asso_name"
@@ -62,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Association Name"
+                android:hint="Association name"
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -72,12 +71,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="School :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="School:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edt_school"
@@ -95,12 +93,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Association Type :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Association Type:"
-                />
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -135,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Write optionnal description"
+                android:hint="Write optional description"
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -145,12 +142,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Links :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Link to Facebook Page:"
-                />
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edt_link"
@@ -158,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/app_border"
-                android:hint="Link to Facebook Page"
+                android:hint="Web site, Facebook Page, Instagram ..."
                 android:inputType="text"
                 android:padding="10dp"
                 android:singleLine="true"
@@ -168,12 +164,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
+                android:text="Members :"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Member:"
-                />
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/memberRecylerView"
@@ -216,6 +211,16 @@
                     android:textColor="@color/white" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Categories :"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRecyclerView"
                 android:layout_width="match_parent"
@@ -255,29 +260,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/white" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:text="Status:"
-                />
-
-            <EditText
-                android:id="@+id/edt_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/app_border"
-                android:hint="Status"
-                android:inputType="text"
-                android:padding="10dp"
-                android:singleLine="true"
-                android:textColorHint="@color/black"
-                android:textSize="14sp" />
 
 
             <Button
