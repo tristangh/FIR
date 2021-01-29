@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.Manifest;
 import android.content.Intent;
@@ -20,10 +21,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +56,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,11 +91,11 @@ public class AddExpense extends AppCompatActivity {
     public Spinner spinnerPayer;
     public String selectedSpinnerPayer;
 
-/*
+
     RelativeLayout rel_start_date;
     String startDate;
     Calendar myCalendar = Calendar.getInstance();
-    */
+
     // Uri indicates, where the image will be picked from
     private Uri filePath;
 
@@ -108,21 +112,12 @@ public class AddExpense extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addexpenseview);
 
         mAuth = FirebaseAuth.getInstance();
-
-
-
-
-
-
-
-
         input_date = findViewById(R.id.input_date);
         input_cause = findViewById(R.id.input_cause);
         input_amount = findViewById(R.id.input_amount);
@@ -167,13 +162,10 @@ public class AddExpense extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
+        //radio group type selection
         //db select
 
         mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
-
-
 
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +178,6 @@ public class AddExpense extends AppCompatActivity {
                 String currency = selectedSpinnerCurr;//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
 
-
                 /*
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radioCredit)
                 {
@@ -195,8 +186,6 @@ public class AddExpense extends AppCompatActivity {
                 else if (radioGroup.getCheckedRadioButtonId() == R.id.radioDebit){
 
                 }*/
-
-
 
                 String state = selectedSpinnerState;
                 String payer = selectedSpinnerPayer;
@@ -215,7 +204,7 @@ public class AddExpense extends AppCompatActivity {
         });
     }
 
-    //setStartDate();
+
     // Select Image method
     private void SelectImage()
     {
@@ -441,11 +430,6 @@ public class AddExpense extends AppCompatActivity {
                 }
             });
 
-
-
-
-
-
         }
 
 
@@ -576,29 +560,7 @@ public class AddExpense extends AppCompatActivity {
         private void setStartDate(){
             Calendar startSelectionDate = Calendar.getInstance();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
-            startDate = sdf.format(startSelectionDate.getTime());
-            input_date.setText(sdf.format(startSelectionDate.getTime()));
-
-        }
-
-
-
-        DatePickerDialog.OnDateSetListener dateFrom = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                updateLabelFrom();
-            }
-
-        };
-
+/*
         private void updateLabelFrom() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
             startDate = sdf.format(myCalendar.getTime());
@@ -655,8 +617,8 @@ public class AddExpense extends AppCompatActivity {
             addQueue.add(stringRequest);
         }
 
-     */
-        /*
+
+
         public void empty(){
             enter_type.setText("");
             enter_status.setText("");
@@ -671,7 +633,9 @@ public class AddExpense extends AppCompatActivity {
             enter_parent_cat.setText("");
         }
 
-         */
+
+ */
+
 
 }
 
