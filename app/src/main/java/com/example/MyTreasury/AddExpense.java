@@ -68,7 +68,7 @@ public class AddExpense extends AppCompatActivity {
     private static final int IMAGE_PICK_CODE = 22;
 
 
-    public EditText input_date, input_cause, input_amount;
+    public EditText input_date, input_cause, input_amount, edt_sub_cat;
     public RadioGroup radioGroup;
     public RadioButton radioCredit, radioDebit;
     public EditText input_comments;
@@ -128,6 +128,7 @@ public class AddExpense extends AppCompatActivity {
         spinnerState = findViewById(R.id.spinnerState);
         spinnerPayer = findViewById(R.id.spinnerPayer);
         spinnerCategory = findViewById(R.id.spinnerCategory);
+        edt_sub_cat = findViewById(R.id.edt_sub_category);
         input_comments = findViewById(R.id.input_comments);
         load_button = findViewById(R.id.load_invoice_button);
         save_button = findViewById(R.id.save_button);
@@ -176,21 +177,20 @@ public class AddExpense extends AppCompatActivity {
                 String cause = input_cause.getText().toString();
                 String amount = input_amount.getText().toString();
                 String currency = selectedSpinnerCurr;//spinnerCurrency.getSelectedItem().toString();
-                String type = "test";
-
-                /*
+                String type = "debit"; //type by default
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radioCredit)
                 {
-                    // do something
+                    type = "credit";
                 }
                 else if (radioGroup.getCheckedRadioButtonId() == R.id.radioDebit){
+                    type = "debit";
 
-                }*/
+                }
 
                 String state = selectedSpinnerState;
                 String payer = selectedSpinnerPayer;
                 String category = selectedSpinnerCat;
-                String subcategory = "test";
+                String subcategory = edt_sub_cat.getText().toString();
                 String comments = input_comments.getText().toString();
                 String img_id = UUID.randomUUID().toString();
                 uploadImage(img_id);
