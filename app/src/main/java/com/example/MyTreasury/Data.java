@@ -23,7 +23,7 @@ public class Data {
 
 
     //for Account Info
-    public String assoName, school, purpose, link, status;
+    public String assoName, school, purpose, link;
 
 
     //Data object for expenses
@@ -59,8 +59,7 @@ public class Data {
 
     //data object for AccountInfo
 
-    public Data(String id, String date, String assoName, String school, String type, String purpose, String link,
-                                String status) {
+    public Data(String id, String date, String assoName, String school, String type, String purpose, String link) {
 
         this.id=id;
         this.date=date;
@@ -69,7 +68,6 @@ public class Data {
         this.type=type;
         this.purpose=purpose;
         this.link=link;
-        this.status=status;
 
 
     }

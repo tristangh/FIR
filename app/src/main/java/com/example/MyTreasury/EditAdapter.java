@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
     List<Data> DataList;
     //public Class myActivity;
     public DatabaseReference database_ref;
+    int layout;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         public Button delButton;
@@ -33,16 +33,17 @@ public class EditAdapter extends RecyclerView.Adapter<EditAdapter.MyViewHolder> 
         }
     }
 
-    public EditAdapter(List<Data> DataList, DatabaseReference database_ref) {
+    public EditAdapter(List<Data> DataList, DatabaseReference database_ref,  int layout) {
         //this.myActivity = activity;
         this.DataList = DataList;
         this.database_ref = database_ref;
+        this.layout = layout;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_edit, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         EditAdapter.MyViewHolder viewH = new EditAdapter.MyViewHolder(v);
         return viewH;
     }

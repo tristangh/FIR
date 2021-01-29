@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,11 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +34,12 @@ public class AccountEdit extends Activity {
     EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status, edt_add_mem;
     RecyclerView memberRecylerView;
     FlexboxLayoutManager layoutManager_member;
-    List<Data> members_list;
+    public static List<Data> members_list;
     public static RecyclerView.Adapter MemberAdapter;
     String selectedSpinnerType;
 
     RecyclerView categoryRecylerView;
-    List<Data> categories_list;
+    public static List<Data> categories_list;
     Button btn_addCategory;
     EditText edt_add_cat;
     FlexboxLayoutManager layoutManager_category;
@@ -128,7 +122,7 @@ public class AccountEdit extends Activity {
                 Data cat_data = new Data(id_category, cat_name);
                 mDatabase.child("Categories").child(id_category).setValue(cat_data);
                 //mDatabase.child("Members").push().setValue(member_name);
-                edt_add_mem.setText("");
+                edt_add_cat.setText("");
 
 
             }
@@ -150,7 +144,7 @@ public class AccountEdit extends Activity {
                     //members_list.add(member);
 
                 }
-                MemberAdapter = new EditAdapter(members_list, mDatabase.child("Members"));
+                MemberAdapter = new EditAdapter(members_list, mDatabase.child("Members"), R.layout.flexbox_edit);
                 memberRecylerView.setAdapter(MemberAdapter);
                 MemberAdapter.notifyDataSetChanged();
             }
@@ -178,7 +172,7 @@ public class AccountEdit extends Activity {
 
 
                 }
-                CategoryAdapter = new EditAdapter(categories_list, mDatabase.child("Categories"));
+                CategoryAdapter = new EditAdapter(categories_list, mDatabase.child("Categories"), R.layout.flexbox_edit);
                 categoryRecylerView.setAdapter(CategoryAdapter);
                 CategoryAdapter.notifyDataSetChanged();
             }
@@ -204,9 +198,9 @@ public class AccountEdit extends Activity {
                 String type = selectedSpinnerType;
                 String purpose = edt_purpose.getText().toString();
                 String link = edt_link.getText().toString();
-                String status = edt_status.getText().toString();
 
-                Data account_data = new Data(id_account, date, assoName,school,type, purpose,link,status);
+
+                Data account_data = new Data(id_account, date, assoName,school,type, purpose,link);
                 //.trim()
                 mDatabase.child("AccountInfo").setValue(account_data);
 
@@ -235,9 +229,6 @@ public class AccountEdit extends Activity {
         }
         if (getIntent().hasExtra("link")) {
             edt_link.setText(getIntent().getStringExtra("link"));
-        }
-        if (getIntent().hasExtra("status")) {
-            edt_status.setText(getIntent().getStringExtra("status"));
         }
         if (getIntent().hasExtra("type")) {
             selectedSpinnerType = getIntent().getStringExtra("type");

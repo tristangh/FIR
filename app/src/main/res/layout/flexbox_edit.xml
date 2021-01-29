@@ -10,7 +10,7 @@
         android:layout_height="25dp"
         android:layout_marginHorizontal="3dp"
         android:layout_marginVertical="3dp"
-        android:background="@drawable/flexbox"
+        android:background="@drawable/flexbox_style"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
@@ -25,7 +25,7 @@
             android:text="TextView"
             android:textColor="#5C5A5A"
             android:textColorHighlight="#FFFFFF"
-            android:textColorLink="#756E6E" />
+            android:textColorLink="#633333" />
 
         <View
             android:id="@+id/divider"
@@ -34,7 +34,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_weight="1"
-            android:background="#606161" />
+            android:background="#36040505" />
 
         <TextView
             android:id="@+id/txt_del"

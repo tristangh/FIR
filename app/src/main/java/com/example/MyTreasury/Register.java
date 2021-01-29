@@ -136,7 +136,7 @@ public class Register extends Activity {
                             String type = selectedSpinnerType;
 
 
-                            Data data = new Data(id, date, assoName,school,type,purpose,link,status);
+                            Data data = new Data(id, date, assoName,school,type,purpose,link);
                             //.trim()
                             mDatabase.setValue(data);
 

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -41,8 +43,14 @@ public class Account extends Fragment {
     public DatabaseReference myRef;
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
+    RecyclerView MembersRecycler;
+    RecyclerView CategoriesRecycler;
 
+    RecyclerView.Adapter MembersAdapter;
+    RecyclerView.Adapter CategoriesAdapter;
 
+    public static List<Data> members_list;
+    public static List<Data> categories_list;
 
 
     Spinner asso_mem;
@@ -67,10 +75,8 @@ public class Account extends Fragment {
         type = v.findViewById(R.id.asso_type);
         purpose = v.findViewById(R.id.purpose);
         link = v.findViewById(R.id.link);
-
-
-
-
+        MembersRecycler = v.findViewById(R.id.MembersRecycler);
+        CategoriesRecycler = v.findViewById(R.id.CategoriesRecycler);
 
         //Firebase init
         mAuth = FirebaseAuth.getInstance();
@@ -78,17 +84,66 @@ public class Account extends Fragment {
         String user_id = mUser.getUid();
 
 
-
-
-
         myRef = FirebaseDatabase.getInstance().getReference(user_id);
+
+        myRef.child("Members").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (members_list != null) {
+                    members_list.clear();
+                }
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    members_list.add(data);
+
+                }
+
+                MembersAdapter = new EditAdapter(members_list, myRef.child("Members"), R.layout.flexbox);
+                MembersRecycler.setAdapter(MembersAdapter);
+                MembersAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        myRef.child("Categories").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (categories_list != null) {
+                    categories_list.clear();
+                }
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    categories_list.add(data);
+
+                }
+
+                CategoriesAdapter = new EditAdapter(categories_list, myRef.child("Categories"), R.layout.flexbox);
+                CategoriesRecycler.setAdapter(CategoriesAdapter);
+                CategoriesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild("AccountInfo")){
-                    myRef = myRef.child("AccountInfo");
 
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    myRef.child("AccountInfo").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -96,7 +151,6 @@ public class Account extends Fragment {
 
                             //get data object
                             data = dataSnapshot.getValue(Data.class);
-
 
                             //append last data to textviews
                             if (data.assoName != null) {
@@ -114,30 +168,14 @@ public class Account extends Fragment {
                             if (data.link != null) {
                                 link.setText(data.link.toString());
                             }
-                            if (data.status != null) {
-                                status.setText(data.status.toString());
-                            }
-
-
-
                             //System.out.println("Data retrived " + data.link);
-
-
                             //if adapter required :
-
                 /*
-
                 mAdapter = new MyAdapter(payments_list, SingleExpense.class, myRef);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-
                 */
-
-
-
-
                         }
-
                         @Override
                         public void onCancelled(DatabaseError error) {
                             // Failed to read value
@@ -146,10 +184,9 @@ public class Account extends Fragment {
                     });
                 }
                 else {
-
                     Toast.makeText(getContext(), "No account information yet, please use edit button to add them.", Toast.LENGTH_LONG).show();
-
                 }
+
 
             }
 
@@ -159,17 +196,11 @@ public class Account extends Fragment {
             }
         });
 
-
         //email init
         email = v.findViewById(R.id.tv_email);
         email.setText(mUser.getEmail());
 
         //System.out.println("Data retrived " + myRef.child("link").get());
-
-
-
-
-
 
         //for user information
         //emailTv = findViewById(R.id.email_tv);
@@ -178,9 +209,6 @@ public class Account extends Fragment {
 
         logoutButton = v.findViewById(R.id.btn_logout);
         editButton = v.findViewById(R.id.btn_edit);
-
-
-        setSpinnerMem();
 
 
         //log out button
@@ -195,9 +223,6 @@ public class Account extends Fragment {
                     Log.w(TAG, "signed out successfully");
 
                     Toast.makeText(getContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
-
-
-                    //launch Login activity
 
                     Intent i = new Intent(getContext(), Login.class);
                     startActivity(i);
@@ -223,69 +248,18 @@ public class Account extends Fragment {
                     i.putExtra("purpose", data.purpose);
                     i.putExtra("link", data.link);
                     i.putExtra("email", mUser.getEmail().toString());
-                    i.putExtra("status", data.status);
+
 
                     startActivity(i);
 
                 } catch (Exception e) {
-                    // an error
-
                 }
             }
         });
 
-
-
-        /* -------------------------------end of code */
-        //return fragment
         return v;
 
     }
-
-
-
-
-
-
-    private void setSpinnerMem() {
-
-        final ArrayList<String> spinnerArray = new ArrayList<String>();
-        spinnerArray.add("Nithya");
-        spinnerArray.add("Tristan");
-        spinnerArray.add("Amine");
-        spinnerArray.add("Paul");
-        spinnerArray.add("Jean");
-
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-        asso_mem.setAdapter(spinnerArrayAdapter);
-
-
-        asso_mem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
-
-                selectedSpinnerMem = spinnerArray.get(position);
-
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
-
-
-
-
-
-
-
-
-
 
 
     public interface OnFragmentInteractionListener {
