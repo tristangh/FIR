@@ -74,19 +74,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final String id = data.getId();
         final String date = data.getDate();
         final String cause = data.getCause();
-        final String amount = data.getAmount();
+        String amount = data.getAmount();
         final String state = data.getState();
         final String payer = data.getPayer();
         final String cat = data.getCat();
         final String subcat = data.getSubcat();
         final String img_id = data.getImg_id_str();
         final String comments = data.getComments();
+        final String type = data.getType();
+
+        if (type.equals("credit")){
+            amount = "+" + amount;
+        }
+        else if (type.equals("debit")){
+            amount = "-" + amount;
+        }
 
 
         viewHolder.txtDate.setText(date);
         viewHolder.txtAmount.setText(amount.toString());
         viewHolder.txtCause.setText(cause);
 
+        final String finalAmount = amount;
         viewHolder.openButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
@@ -95,9 +104,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                                   mIntent.putExtra("Id", id);
                                                   mIntent.putExtra("Date", date);
                                                   mIntent.putExtra("Cause", cause);
-                                                  mIntent.putExtra("Amount", amount);
+                                                  mIntent.putExtra("Amount", finalAmount);
                                                   mIntent.putExtra("State", state);
                                                   mIntent.putExtra("Payer", payer);
+                                                  mIntent.putExtra("Type", type);
                                                   mIntent.putExtra("Category", cat);
                                                   mIntent.putExtra("Sub-category", subcat);
                                                   mIntent.putExtra("Invoice file", img_id);

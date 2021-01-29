@@ -18,7 +18,8 @@ public class SingleExpense extends AppCompatActivity {
     String id;
     String date;
     String cause;
-    String balance;
+    String type;
+    String amount;
     String state;
     String payer;
     String cat;
@@ -63,9 +64,19 @@ public class SingleExpense extends AppCompatActivity {
         img_invoice = findViewById(R.id.img_invoice);
         button_delete = findViewById(R.id.button_delete);
 
+
+        //set text amount balance
         txt_date.setText(date);
         txt_cause.setText(cause);
-        txt_balance.setText(balance);
+        assert type != null;
+        if (type.equals("credit")){
+            amount = "+" + amount;
+        }
+        else if (type.equals("debit")){
+            amount = "-" + amount;
+        }
+
+        txt_balance.setText(amount);
         txt_state.setText(state);
         txt_payer.setText(payer);
         txt_cat.setText(cat);
@@ -111,8 +122,11 @@ public class SingleExpense extends AppCompatActivity {
         if (getIntent().hasExtra("Cause")) {
             cause = getIntent().getStringExtra("Cause");
         }
+        if (getIntent().hasExtra("Type")) {
+            type = getIntent().getStringExtra("Type");
+        }
         if (getIntent().hasExtra("Amount")) {
-            balance = getIntent().getStringExtra("Amount");
+            amount = getIntent().getStringExtra("Amount");
         }
         if (getIntent().hasExtra("State")) {
             state = getIntent().getStringExtra("State");
