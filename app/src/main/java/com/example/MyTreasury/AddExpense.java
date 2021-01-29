@@ -104,7 +104,6 @@ public class AddExpense extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,8 +124,6 @@ public class AddExpense extends AppCompatActivity {
         load_button = findViewById(R.id.load_invoice_button);
         save_button = findViewById(R.id.save_button);
         //mImageView = findViewById(R.id.image_view);
-
-        setStartDate();
 
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
@@ -417,32 +414,7 @@ public class AddExpense extends AppCompatActivity {
 
         }
 
-        private void setStartDate(){
-            Calendar startSelectionDate = Calendar.getInstance();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
-            String startDate = sdf.format(startSelectionDate.getTime());
-            input_date.setText(startDate);
-
-        }
-
-        DatePickerDialog.OnDateSetListener dateFrom = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
-                startDate = sdf.format(myCalendar.getTime());
-                input_date.setText(sdf.format(myCalendar.getTime()));
-                //updateLabelFrom();
-            }
-
-        };
 /*
         private void updateLabelFrom() {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.FRANCE);
