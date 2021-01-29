@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,7 +31,7 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class AccountEdit extends Activity {
-    Spinner association_spinner,asso_mem;
+    Spinner asso_type_spinner;
     Button addMemberButton, updateButton, btn_addMember;
     EditText edt_asso_name,edt_school,edt_purpose,edt_link,edt_status, edt_add_mem;
     RecyclerView memberRecylerView;
@@ -62,11 +64,8 @@ public class AccountEdit extends Activity {
 
 
         //spinner init
-        association_spinner = findViewById(R.id.spinner_association);
-        memberRecylerView = findViewById(R.id.memberRecylerView);
-        categoryRecylerView = findViewById(R.id.categoryRecyclerView);
-
-
+        asso_type_spinner = findViewById(R.id.spinner_ass_type);
+        setSpinnerType();
 
 
         //button init
@@ -75,6 +74,8 @@ public class AccountEdit extends Activity {
         btn_addCategory = findViewById(R.id.btn_addCategory);
 
         //Members recycler init
+
+        memberRecylerView = findViewById(R.id.memberRecylerView);
         //layoutManager = new GridLayoutManager(this, 6);
         layoutManager_member = new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP);
         //layoutManager_member.setFlexDirection(FlexDirection.ROW);
@@ -82,6 +83,8 @@ public class AccountEdit extends Activity {
         members_list = new ArrayList<Data>();
 
         //Categories recycler init
+
+        categoryRecylerView = findViewById(R.id.categoryRecyclerView);
         layoutManager_category = new FlexboxLayoutManager(this, FlexDirection.ROW, FlexWrap.WRAP);
         //layoutManager_category.setFlexDirection();
         categoryRecylerView.setLayoutManager(layoutManager_category);
@@ -207,6 +210,49 @@ public class AccountEdit extends Activity {
                 Intent IntentBack = new Intent(AccountEdit.this, MainActivity.class);
                 IntentBack.putExtra("frgToLoad", 3);
                 startActivity(IntentBack);
+
+            }
+        });
+
+
+    }
+
+
+    //Spinner
+    private void setSpinnerType(){
+
+        final ArrayList<String> spinnerTypeArray = new ArrayList<String>();
+        spinnerTypeArray.add("Sportive");
+        spinnerTypeArray.add("Charity");
+        spinnerTypeArray.add("Professional");
+        spinnerTypeArray.add("Cultural");
+        spinnerTypeArray.add("Artistic");
+        spinnerTypeArray.add("International");
+        spinnerTypeArray.add("Humanitarian");
+        spinnerTypeArray.add("Playful");
+        spinnerTypeArray.add("Robotics");
+        spinnerTypeArray.add("Sciences");
+        spinnerTypeArray.add("Other");
+
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerTypeArray);
+        asso_type_spinner.setAdapter(spinnerArrayAdapter);
+
+
+        asso_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+
+                selectedSpinnerType = spinnerTypeArray.get(position);
+                Log.d(TAG, "Selected Item:" + selectedSpinnerType);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
