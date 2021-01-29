@@ -7,7 +7,7 @@ public class Data {
     //for Transaction
     public String date;
     public String cause;
-    public String amount;
+    public Double amount;
     public String currency;
     public String type;
     public String state;
@@ -28,7 +28,7 @@ public class Data {
 
     //Data object for expenses
 
-    public Data(String id, String date, String cause, String amount, String currency, String type,
+    public Data(String id, String date, String cause, double amount, String currency, String type,
                 String state, String payer, String cat, String subcat, String comments, String img_id_str) {
 
         this.id=id;
@@ -44,18 +44,16 @@ public class Data {
         this.comments=comments;
         this.img_id_str=img_id_str;
 
-        String sign;
         if (type.equals("Debit")){
-            sign = "+";
+            this.amount = 0-amount;
         }
         else if (type.equals("Credit")) {
-            sign = "-";
+            this.amount = 0+amount;
         }
         else {
-            sign="";
+            this.amount=amount;
         }
 
-        this.balance=sign+amount+" "+currency;
     }
 
 
@@ -111,11 +109,11 @@ public class Data {
         this.cause = cause;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

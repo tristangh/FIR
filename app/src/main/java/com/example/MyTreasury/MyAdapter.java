@@ -74,14 +74,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         final String id = data.getId();
         final String date = data.getDate();
         final String cause = data.getCause();
-        final String amount = data.getAmount();
+        final Double amount = data.getAmount();
         final String state = data.getState();
         final String payer = data.getPayer();
         final String cat = data.getCat();
         final String subcat = data.getSubcat();
 
         viewHolder.txtDate.setText(date);
-        viewHolder.txtAmount.setText(amount);
+        viewHolder.txtAmount.setText(amount.toString());
         viewHolder.txtCause.setText(cause);
 
         viewHolder.openButton.setOnClickListener(new View.OnClickListener() {

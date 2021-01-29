@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class AddExpense extends AppCompatActivity {
 
 
     public EditText input_date, input_cause, input_amount;
+    public RadioGroup radioGroup;
     public RadioButton radioCredit, radioDebit;
     public EditText input_comments;
     public Button load_button , btnUpload, save_button;
@@ -117,6 +119,7 @@ public class AddExpense extends AppCompatActivity {
         input_cause = findViewById(R.id.input_cause);
         input_amount = findViewById(R.id.input_amount);
         spinnerCurrency = findViewById(R.id.spinnerCurrency);
+        radioGroup = findViewById(R.id.radio_type);
         radioCredit = findViewById(R.id.radioCredit);
         radioDebit = findViewById(R.id.radioDebit);
         spinnerState = findViewById(R.id.spinnerState);
@@ -145,6 +148,14 @@ public class AddExpense extends AppCompatActivity {
 
         createSpinnerCategory();
         createSpinnerPayer();
+
+        //radio group type selection
+
+
+
+
+        //db select
+
         mDatabase = FirebaseDatabase.getInstance().getReference(user_id).child("Expenses");
 
 
@@ -156,9 +167,22 @@ public class AddExpense extends AppCompatActivity {
                 String id = mDatabase.push().getKey();
                 String date = input_date.getText().toString();
                 String cause = input_cause.getText().toString();
-                String amount = input_amount.getText().toString();
+                Double amount = Double.parseDouble(input_amount.getText().toString());
                 String currency = "test";//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
+
+
+                /*
+                if (radioGroup.getCheckedRadioButtonId() == R.id.radioCredit)
+                {
+                    // do something
+                }
+                else if (radioGroup.getCheckedRadioButtonId() == R.id.radioDebit){
+
+                }*/
+
+
+
                 String state = "test";
                 String payer = selectedSpinnerPayer;
                 String category = selectedSpinnerCat;
