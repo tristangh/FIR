@@ -28,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,8 +47,15 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.ArrayList;
@@ -131,6 +139,9 @@ public class AddExpense extends AppCompatActivity {
         imageView = findViewById(R.id.imgView);
 
 
+
+
+
         // on pressing btnSelect SelectImage() is called
         load_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,9 +151,16 @@ public class AddExpense extends AppCompatActivity {
         });
 
 
-
+        // Create spinners
         createSpinnerCategory();
         createSpinnerPayer();
+        createSpinnerState();
+        //get the currency from api & create spinner currency
+        try {
+            createSpinnerCurrency();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //radio group type selection
         //db select
@@ -157,7 +175,7 @@ public class AddExpense extends AppCompatActivity {
                 String date = input_date.getText().toString();
                 String cause = input_cause.getText().toString();
                 String amount = input_amount.getText().toString();
-                String currency = "test";//spinnerCurrency.getSelectedItem().toString();
+                String currency = selectedSpinnerCurr;//spinnerCurrency.getSelectedItem().toString();
                 String type = "test";
 
                 /*
@@ -169,7 +187,7 @@ public class AddExpense extends AppCompatActivity {
 
                 }*/
 
-                String state = "test";
+                String state = selectedSpinnerState;
                 String payer = selectedSpinnerPayer;
                 String category = selectedSpinnerCat;
                 String subcategory = "test";
@@ -414,6 +432,133 @@ public class AddExpense extends AppCompatActivity {
 
         }
 
+
+        //State Spinner
+
+    private void createSpinnerState(){
+
+        final ArrayList<String> spinnerStateArray = new ArrayList<String>();
+        spinnerStateArray.add("Done");
+        spinnerStateArray.add("Pending");
+
+        ArrayAdapter<String> spinnerCurrAdapter = new ArrayAdapter<String>(AddExpense.this, android.R.layout.simple_spinner_item, spinnerStateArray);
+        spinnerState.setAdapter(spinnerCurrAdapter);
+
+
+        spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+
+                selectedSpinnerState = spinnerStateArray.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+
+
+    public void createSpinnerCurrency() throws IOException {
+
+        final ArrayList<String> spinnerCurrArray = new ArrayList<String>();
+        spinnerCurrArray.add("EUR");
+
+
+
+        //interface retrofit
+
+        String url = "https://api.exchangeratesapi.io/latest";
+
+
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Content-Type", "application/json")
+                .build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(com.squareup.okhttp.Request request, IOException e) {
+                String mMessage = e.getMessage();
+                Log.w("message du fail : ", mMessage);
+                //   Toast.makeText(MainActivity.this, mMessage, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onResponse(com.squareup.okhttp.Response response) throws IOException {
+                final String mMessage = response.body().string();
+
+
+                AddExpense.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(MainActivity.this, mMessage, Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject obj = new JSONObject(mMessage);
+                            JSONObject b = obj.getJSONObject("rates");
+
+                            Iterator keysToCopyIterator = b.keys();
+
+
+                            while (keysToCopyIterator.hasNext()) {
+
+                                String key = (String) keysToCopyIterator.next();
+
+                                spinnerCurrArray.add(key);
+
+                            }
+
+                            ArrayAdapter<String> spinnerCurrAdapter = new ArrayAdapter<String>(AddExpense.this, android.R.layout.simple_spinner_item, spinnerCurrArray);
+                            spinnerCurrency.setAdapter(spinnerCurrAdapter);
+                            spinnerCurrency.setSelection(0);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+
+
+
+
+
+        });
+
+        spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.black));
+
+                selectedSpinnerCurr = spinnerCurrArray.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+    }
+
+
+    /*
+        private void setStartDate(){
+            Calendar startSelectionDate = Calendar.getInstance();
 
 /*
         private void updateLabelFrom() {
