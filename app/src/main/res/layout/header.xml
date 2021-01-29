@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/colorAccent"
-    android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -11,8 +10,10 @@
     <ImageView
         android:layout_width="143dp"
         android:layout_height="101dp"
-        android:src="@drawable/invoice_icon"
-        android:contentDescription="@string/my_treasury" />
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/my_treasury"
+        android:foregroundGravity="center"
+        android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"

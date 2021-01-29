@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class Login extends AppCompatActivity {
     private Button emailSignInButton;
     private EditText fieldEmail, fieldPassword;
     public Context mContext;
+    ImageView img_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class Login extends AppCompatActivity {
 
         fieldEmail.setText("essai1@gmail.com");
         fieldPassword.setText("123456");
+
+        img_logo = findViewById(R.id.img_logo);
+        img_logo.setImageResource(R.drawable.logo);
 
     }
 
