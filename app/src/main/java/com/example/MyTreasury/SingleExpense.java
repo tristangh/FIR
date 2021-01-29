@@ -68,13 +68,7 @@ public class SingleExpense extends AppCompatActivity {
         //set text amount balance
         txt_date.setText(date);
         txt_cause.setText(cause);
-        assert type != null;
-        if (type.equals("credit")){
-            amount = "+" + amount;
-        }
-        else if (type.equals("debit")){
-            amount = "-" + amount;
-        }
+
 
         txt_balance.setText(amount);
         txt_state.setText(state);
