@@ -263,17 +263,41 @@ public class Account extends Fragment {
             public void onClick(View v) {
                 try {
                     Intent i = new Intent(getContext(), AccountEdit.class);
-                    i.putExtra("asso", data.assoName);
-                    i.putExtra("school", data.school);
-                    i.putExtra("type", data.type);
-                    i.putExtra("purpose", data.purpose);
-                    i.putExtra("link", data.link);
-                    i.putExtra("email", mUser.getEmail().toString());
+                    if (data.assoName!=null) {
+                        i.putExtra("asso", data.assoName);
+                    }
+                    if (data.school!=null) {
+                        i.putExtra("school", data.school);
+                    }
+                    if (data.type!=null) {
+                        i.putExtra("type", data.type);
+                    }
+                    if (data.purpose!=null) {
+                        i.putExtra("purpose", data.purpose);
+                    }
+                    if (data.link!=null) {
+                        i.putExtra("link", data.link);
+                    }
+                    if (mUser.getEmail()!=null) {
+                        i.putExtra("email", mUser.getEmail().toString());
+                    }
+
+
 
 
                     startActivity(i);
 
                 } catch (Exception e) {
+                    Log.w(TAG, "Problème : "+e);
+                    try {
+                        Intent i = new Intent(getContext(), AccountEdit.class);
+                        startActivity(i);
+                    }
+                    catch (Exception e2){
+                        Log.w(TAG, "Problème : "+e2);
+                    }
+
+
                 }
             }
         });
